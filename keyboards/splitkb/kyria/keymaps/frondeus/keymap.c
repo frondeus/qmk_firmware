@@ -264,21 +264,45 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 #endif
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        switch (keycode) {
-            case PL_EOGO: SEND_STRING(SS_RALT("g") "e"); break;
-            case PL_AOGO: SEND_STRING(SS_RALT("g") "a"); break;
-            case PL_EURO: SEND_STRING(SS_RALT("5")); break;
-            case PL_CACU: SEND_STRING(SS_RALT("t") "c"); break;
-            case PL_NACU: SEND_STRING(SS_RALT("t") "n"); break;
-            case PL_OACU: SEND_STRING(SS_RALT("t") "o"); break;
-            case PL_SACU: SEND_STRING(SS_RALT("t") "s"); break;
-            case PL_ZACU: SEND_STRING(SS_RALT("t") "z"); break;
-            case PL_ZDOT: SEND_STRING(SS_RALT(".") "z"); break;
-            case PL_LSTR: SEND_STRING(SS_RALT("l")); break;
+struct AltKey {
+    uint16_t trigger;
+    uint16_t prefix;
+    uint16_t key;
+};
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    uint8_t mod_state = get_mods();
+
+    const int key_len = 10;
+    struct AltKey keys[] = {
+        { PL_EOGO, CM_G,  CM_E },
+        { PL_AOGO, CM_G,  CM_A },
+        { PL_EURO, KC_NO, CM_5 },
+        { PL_CACU, CM_T,  CM_C },
+        { PL_NACU, CM_T,  CM_N },
+        { PL_OACU, CM_T,  CM_O },
+        { PL_SACU, CM_T,  CM_S },
+        { PL_ZACU, CM_T,  CM_Z },
+        { PL_ZDOT, CM_DOT,CM_Z },
+        { PL_LSTR, KC_NO, CM_L },
+    };
+
+        for (int i = 0; i < key_len; i++) {
+            struct AltKey key = keys[i];
+            if (key.trigger == keycode) {
+                if (record->event.pressed) {
+                    if (key.prefix != KC_NO) {
+                        clear_mods();
+                        tap_code16(RALT(key.prefix));
+                        set_mods(mod_state);
+
+                        tap_code16(key.key);
+                    }
+                    else {
+                        tap_code16(RALT(key.key));
+                    }
+                }
+            }
         }
-    }
     return true;
 }
