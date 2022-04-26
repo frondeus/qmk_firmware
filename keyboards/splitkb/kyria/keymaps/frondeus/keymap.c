@@ -22,6 +22,7 @@ enum layers {
     /* _QWERTY, */
     /* _DVORAK, */
     /* _COLEMAK_DH, */
+    _DK_DIACTRICS,
     _PL_DIACTRICS,
     _NAV,
     _SYM,
@@ -52,6 +53,7 @@ enum layers {
 #define HOME_I  MT(MOD_LALT, CM_I)
 #define HOME_O  MT(MOD_RGUI, CM_O)
 #define ALT_PL  TT(_PL_DIACTRICS)
+#define ALT_DK  TT(_DK_DIACTRICS)
 
 enum custom_keycodes {
     // Polish
@@ -65,6 +67,15 @@ enum custom_keycodes {
     PL_ZACU, // Ź
     PL_CACU, // Ć
     PL_NACU, // Ń
+    // Danish
+    DK_UACU,
+    DK_YACU,
+    DK_AACU,
+    DK_ACIR,
+    DK_EACU,
+    DK_IACU,
+    DK_ASH,
+    DK_ODIA
 };
 
 // Note: LAlt/Enter (ALT_ENT) is not the same thing as the keyboard shortcut Alt+Enter.
@@ -92,8 +103,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_COLEMAK_DH] = LAYOUT(
      KC_BSPC , CM_Q ,  CM_W   ,  CM_F  ,   CM_P ,   CM_B ,                                        CM_J,  CM_L  ,  CM_U , CM_Y   ,CM_DQUO, KC_BSPC,
      KC_TAB  ,HOME_A,  HOME_R ,  HOME_S,  HOME_T,   CM_G ,                                        CM_M,  HOME_N, HOME_E, HOME_I ,HOME_O,  KC_ENT,
-     KC_RALT , CM_Z ,  CM_X   ,  CM_C  ,   CM_D ,   CM_V , ADJUST ,KC_CAPS,     _______, _______, CM_COLN,CM_K ,  CM_H , CM_COMM,CM_DOT,  CM_QUES,
-                                KC_MUTE, KC_ESC , KC_SPC , NUM    , NAV   ,     FKEYS  , SYM    , KC_RSFT,ALT_PL, _RESET
+     KC_RALT , CM_Z ,  CM_X   ,  CM_C  ,   CM_D ,   CM_V , ADJUST ,KC_CAPS,     FKEYS  , _______, CM_COLN,CM_K ,  CM_H , CM_COMM,CM_DOT,  CM_QUES,
+                                KC_MUTE, KC_ESC , KC_SPC , NUM    , NAV   ,     ALT_DK , SYM    , KC_RSFT,ALT_PL, _RESET
     ),
 /*
  * Layer template
@@ -116,6 +127,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
+/*
+ * Layer template
+ *
+ * ,-------------------------------------------.                              ,-------------------------------------------.
+ * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
+ * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        `----------------------------------'  `----------------------------------'
+ */
+    [_DK_DIACTRICS] = LAYOUT(
+      _______, _______, _______, _______, _______, _______,                                     _______, _______, DK_UACU, DK_YACU, _______, _______,
+      _______, DK_AACU, DK_ACIR, _______, _______, _______,                                     _______, _______, DK_EACU, DK_IACU, DK_ODIA, _______,
+      _______, DK_ASH , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
 /*
  * Nav Layer: Media, navigation
  *
@@ -273,7 +304,7 @@ struct AltKey {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uint8_t mod_state = get_mods();
 
-    const int key_len = 10;
+    const int key_len = 18;
     struct AltKey keys[] = {
         { PL_EOGO, CM_G,  CM_E },
         { PL_AOGO, CM_G,  CM_A },
@@ -285,6 +316,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         { PL_ZACU, CM_T,  CM_Z },
         { PL_ZDOT, CM_DOT,CM_Z },
         { PL_LSTR, KC_NO, CM_L },
+
+        { DK_UACU, CM_T,  CM_U },
+        { DK_YACU, CM_T,  CM_Y },
+        { DK_AACU, CM_T,  CM_A },
+        { DK_EACU, CM_T,  CM_E },
+        { DK_IACU, CM_T,  CM_I },
+        { DK_ACIR, KC_NO, CM_W },
+        { DK_ASH,  KC_NO, CM_Z },
+        { DK_ODIA, KC_NO, CM_P },
     };
 
         for (int i = 0; i < key_len; i++) {
@@ -302,6 +342,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         tap_code16(RALT(key.key));
                     }
                 }
+                break;
             }
         }
     return true;
