@@ -45,7 +45,7 @@ enum layers {
 #define _RESET   TO(_COLEMAK_DH)
 #define TOGGLE   OSL(_TOGGLE)
 
-/* #define RS_UNDS MT(MOD_RSFT, CM_UNDS) */
+#define RS_SCLN MT(MOD_RSFT, CM_SCLN)
 
 #define HOME_A  MT(MOD_LGUI, CM_A)
 #define HOME_R  MT(MOD_LALT, CM_R)
@@ -137,10 +137,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * | Tab    | A    | R    | S    | T    | G    |                              | M    | N    | E    | I    | O    | Ent    |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | AltGrp | Z    | X    | C    | D    | V    | ADJ  | CAPS |  | FKEY |      | '    | K    | H    | ,    | .    | :      |
+ * | AltGrp | Z    | X    | C    | D    | V    | ADJ  |      |  |      | CAPS | '    | K    | H    | ,    | .    | :      |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | MUTE | Esc  | Spc  |      |      |  |      | _    |      |      | REST |
- *                        |      |      |      | NUM  | NAV  |  |      | SYM  | Rsft |      |      |
+ *                        | MUTE | Esc  | Spc  |      |      |  |      | _    | ;    |      | REST |
+ *                        |      |      |      | NUM  | NAV  |  | FKEY | SYM  | Rsft |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
 
@@ -148,15 +148,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_COLEMAK_DH] = LAYOUT(
      KC_BSPC , CM_Q ,  CM_W   ,  CM_F  ,   CM_P ,   CM_B ,                                        CM_J,  CM_L  ,  CM_U , CM_Y   ,CM_QUES, KC_BSPC,
      KC_TAB  ,HOME_A,  HOME_R ,  HOME_S,  HOME_T,   CM_G ,                                        CM_M,  HOME_N, HOME_E, HOME_I ,HOME_O,  KC_ENT,
-     KC_RALT , CM_Z ,  CM_X   ,  CM_C  ,   CM_D ,   CM_V , ADJUST ,KC_CAPS,     FKEYS  , _______, CM_QUOT,CM_K ,  CM_H , CM_COMM,CM_DOT,  CM_COLN,
-                                 TOGGLE, KC_ESC , KC_SPC , NUM    , NAV   ,     _______,SYM_UNDS, KC_RSFT,_______, KC_MUTE
+     KC_RALT , CM_Z ,  CM_X   ,  CM_C  ,   CM_D ,   CM_V , ADJUST ,_______,     _______, KC_CAPS, CM_QUOT,CM_K ,  CM_H , CM_COMM,CM_DOT,  CM_COLN,
+                                 TOGGLE, KC_ESC , KC_SPC , NUM    , NAV   ,     FKEYS  ,SYM_UNDS, RS_SCLN,_______, KC_MUTE
     ),
 
     [_TOGGLE] = LAYOUT(
       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______, _______, _______, _______, T_FKEYS, _______, _______, _______, _______, _______, _______, _______,
-                                 _RESET , _______, _______, T_NUM  , T_NAV  , _______, T_SYM  , _______, _______, _______
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                                 _RESET , _______, _______, T_NUM  , T_NAV  , T_FKEYS, T_SYM  , _______, _______, _______
     ),
 /*
  * Sym Layer: Symbols
@@ -166,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        | (    | )    | {    | }    | |    |                              | @    | %    | =    | ~    | `    |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      | [    | ]    | \    |      |      |  |      |      | "    | #    | ^    | &    | $    | ;      |
+ * |        |      |      | [    | ]    | \    |      |      |  |      |      | "    | #    | ^    | &    | $    |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
@@ -175,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_SYM] = LAYOUT(
       _______, _______, _______, CM_LABK, CM_RABK, CM_SLSH,                                     _______, CM_MINS, CM_PLUS, CM_ASTR, CM_EXLM, _______,
       _______, CM_LPRN, CM_RPRN, CM_LCBR, CM_RCBR, CM_PIPE,                                     CM_AT  , CM_PERC, CM_EQL , CM_TILD, CM_GRV , _______,
-      _______, _______, _______, CM_LBRC, CM_RBRC, CM_BSLS, _______, _______, _______, _______, CM_DQUO, CM_HASH, CM_CIRC, CM_AMPR, CM_DLR , CM_SCLN,
+      _______, _______, _______, CM_LBRC, CM_RBRC, CM_BSLS, _______, _______, _______, _______, CM_DQUO, CM_HASH, CM_CIRC, CM_AMPR, CM_DLR , _______,
                                  _RESET , _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
