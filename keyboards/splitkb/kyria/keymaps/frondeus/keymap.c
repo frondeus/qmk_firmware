@@ -22,11 +22,9 @@ enum layers {
     /* _QWERTY, */
     /* _DVORAK, */
     /* _COLEMAK_DH, */
-    _DK_DIACTRICS,
-    _PL_DIACTRICS,
-    _NAV,
-    _SYM,
     _NUM,
+    _SYM,
+    _NAV,
     _FUNCTION,
     _ADJUST,
 };
@@ -52,35 +50,73 @@ enum layers {
 #define HOME_E  MT(MOD_RSFT, CM_E)
 #define HOME_I  MT(MOD_LALT, CM_I)
 #define HOME_O  MT(MOD_RGUI, CM_O)
-#define ALT_PL  TT(_PL_DIACTRICS)
-#define ALT_DK  TT(_DK_DIACTRICS)
 
-enum custom_keycodes {
-    // Polish
-    PL_EOGO = SAFE_RANGE,// Ę
-    PL_EURO, // €
-    PL_OACU, // Ó
-    PL_AOGO, // Ą
-    PL_SACU, // Ś
-    PL_LSTR, // Ł
-    PL_ZDOT, // Ż
-    PL_ZACU, // Ź
-    PL_CACU, // Ć
-    PL_NACU, // Ń
-    // Danish
-    DK_UACU, // Ú
-    DK_YACU, // Ý
-    DK_AACU, // Á
-    DK_ACIR, // Å
-    DK_EACU, // É
-    DK_IACU, // Í
-    DK_ASH,  // Æ
-    DK_ODIA  // Ø
+enum combos {
+    AE_DK_ASH,   // Æ
+
+    ECO_PL_EOGO, // Ę
+    ACO_PL_AOGO, // Ą
+    OQU_PL_OACU, // Ó
+    SQU_PL_SACU, // Ś
+    ZQU_PL_ZACU, // Ź
+    CQU_PL_CACU, // Ć
+    NQU_PL_NACU, // Ń
+    UQU_DK_UACU, // Ú
+    YQU_DK_YACU, // Ý
+    AQU_DK_AACU, // Á
+    EQU_DK_EACU, // É
+    IQU_DK_IACU, // Í
+
+    ZDO_PL_ZDOT, // Ż
+    ADO_DK_ACIR, // Å
+
+    LSL_PL_LSTR, // Ł
+    OSL_DK_ODIA, // Ø
+
+    COMBO_LENGTH
 };
 
-// Note: LAlt/Enter (ALT_ENT) is not the same thing as the keyboard shortcut Alt+Enter.
-// The notation `mod/tap` denotes a key that activates the modifier `mod` when held down, and
-// produces the key `tap` when tapped (i.e. pressed and released).
+uint16_t COMBO_LEN = COMBO_LENGTH;
+
+const uint16_t PROGMEM dk_ash_combo[] =  {HOME_A, HOME_E,  COMBO_END};
+const uint16_t PROGMEM pl_eogo_combo[] = {HOME_E, CM_COMM, COMBO_END};
+const uint16_t PROGMEM pl_aogo_combo[] = {HOME_A, CM_COMM, COMBO_END};
+const uint16_t PROGMEM pl_oacu_combo[] = {HOME_O, CM_QUOT, COMBO_END};
+const uint16_t PROGMEM pl_sacu_combo[] = {HOME_S, CM_QUOT, COMBO_END};
+const uint16_t PROGMEM pl_zacu_combo[] = {CM_Z,   CM_QUOT, COMBO_END};
+const uint16_t PROGMEM pl_cacu_combo[] = {CM_C,   CM_QUOT, COMBO_END};
+const uint16_t PROGMEM pl_nacu_combo[] = {HOME_N, CM_QUOT, COMBO_END};
+const uint16_t PROGMEM dk_uacu_combo[] = {CM_U,   CM_QUOT, COMBO_END};
+const uint16_t PROGMEM dk_yacu_combo[] = {CM_Y,   CM_QUOT, COMBO_END};
+const uint16_t PROGMEM dk_aacu_combo[] = {HOME_A, CM_QUOT, COMBO_END};
+const uint16_t PROGMEM dk_eacu_combo[] = {HOME_E, CM_QUOT, COMBO_END};
+const uint16_t PROGMEM dk_iacu_combo[] = {HOME_I, CM_QUOT, COMBO_END};
+const uint16_t PROGMEM pl_zdot_combo[] = {CM_Z,   CM_DOT,  COMBO_END};
+const uint16_t PROGMEM dk_acir_combo[] = {HOME_A, CM_DOT,  COMBO_END};
+const uint16_t PROGMEM pl_lstr_combo[] = {CM_L,   HOME_S,  COMBO_END};
+const uint16_t PROGMEM dk_odia_combo[] = {HOME_O, HOME_S,  COMBO_END};
+
+combo_t key_combos[] = {
+    [AE_DK_ASH] = COMBO_ACTION(dk_ash_combo),
+    [ECO_PL_EOGO] = COMBO_ACTION(pl_eogo_combo), // Ę
+    [ACO_PL_AOGO] = COMBO_ACTION(pl_aogo_combo), // Ą
+    [OQU_PL_OACU] = COMBO_ACTION(pl_oacu_combo), // Ó
+    [SQU_PL_SACU] = COMBO_ACTION(pl_sacu_combo), // Ś
+    [ZQU_PL_ZACU] = COMBO_ACTION(pl_zacu_combo), // Ź
+    [CQU_PL_CACU] = COMBO_ACTION(pl_cacu_combo), // Ć
+    [NQU_PL_NACU] = COMBO_ACTION(pl_nacu_combo), // Ń
+    [UQU_DK_UACU] = COMBO_ACTION(dk_uacu_combo), // Ú
+    [YQU_DK_YACU] = COMBO_ACTION(dk_yacu_combo), // Ý
+    [AQU_DK_AACU] = COMBO_ACTION(dk_aacu_combo), // Á
+    [EQU_DK_EACU] = COMBO_ACTION(dk_eacu_combo), // É
+    [IQU_DK_IACU] = COMBO_ACTION(dk_iacu_combo), // Í
+
+    [ZDO_PL_ZDOT] = COMBO_ACTION(pl_zdot_combo), // Ż
+    [ADO_DK_ACIR] = COMBO_ACTION(dk_acir_combo), // Å
+
+    [LSL_PL_LSTR] = COMBO_ACTION(pl_lstr_combo), // Ł
+    [OSL_DK_ODIA] = COMBO_ACTION(dk_odia_combo), // Ø
+};
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -88,65 +124,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Base Layer: Colemak
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * | Bksp   | Q    |  W   |  F   | P    | B    |                              | J    | L    | U    | Y    | "    | Bksp   |
+ * | Bksp   | Q    |  W   |  F   | P    | B    |                              | J    | L    | U    | Y    | ?    | Bksp   |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * | Tab    | A    | R    | S    | T    | G    |                              | M    | N    | E    | I    | O    | Ent    |
+ * | Tab    | A    | R    | S    | T    | G    |                              | M    | N    | E    | I    | O    | :      |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | AltGrp | Z    | X    | C    | D    | V    | ADJ  | CAPS |  | FKEY |      | :    | K    | H    | ,    | .    | ?      |
+ * | AltGrp | Z    | X    | C    | D    | V    | ADJ  | CAPS |  | FKEY |      | _    | K    | H    | ,    | .    | Ent    |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | MUTE | Esc  | Spc  | NUM  | NAV  |  | DK   | SYM  | Rsft | PL   | REST |
+ *                        | MUTE | Esc  | Spc  | NUM  | NAV  |  |      | SYM  | Rsft | '    | REST |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
 
 
     [_COLEMAK_DH] = LAYOUT(
-     KC_BSPC , CM_Q ,  CM_W   ,  CM_F  ,   CM_P ,   CM_B ,                                        CM_J,  CM_L  ,  CM_U , CM_Y   ,CM_DQUO, KC_BSPC,
-     KC_TAB  ,HOME_A,  HOME_R ,  HOME_S,  HOME_T,   CM_G ,                                        CM_M,  HOME_N, HOME_E, HOME_I ,HOME_O,  KC_ENT,
-     KC_RALT , CM_Z ,  CM_X   ,  CM_C  ,   CM_D ,   CM_V , ADJUST ,KC_CAPS,     FKEYS  , _______, CM_COLN,CM_K ,  CM_H , CM_COMM,CM_DOT,  CM_QUES,
-                                KC_MUTE, KC_ESC , KC_SPC , NUM    , NAV   ,     ALT_DK , SYM    , KC_RSFT,ALT_PL, _RESET
-    ),
-/*
- * Polish diactrics
- *
- * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |      |      |      |      |      |                              |      | Ł    | €    |      |      |        |
- * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        | Ą    |      | Ś    |      |      |                              |      | Ń    | Ę    |      | Ó    |        |
- * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        | Ż    | Ź    | Ć    |      |      |      |      |  |      |      |      |      |      |      |      |        |
- * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        `----------------------------------'  `----------------------------------'
- */
-    [_PL_DIACTRICS] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,                                     _______, PL_LSTR, PL_EURO, _______, _______, _______,
-      _______, PL_AOGO, _______, PL_SACU, _______, _______,                                     _______, PL_NACU, PL_EOGO, _______, PL_OACU, _______,
-      _______, PL_ZDOT, PL_ZACU, PL_CACU, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+     KC_BSPC , CM_Q ,  CM_W   ,  CM_F  ,   CM_P ,   CM_B ,                                        CM_J,  CM_L  ,  CM_U , CM_Y   ,CM_QUES, KC_BSPC,
+     KC_TAB  ,HOME_A,  HOME_R ,  HOME_S,  HOME_T,   CM_G ,                                        CM_M,  HOME_N, HOME_E, HOME_I ,HOME_O,  CM_COLN,
+     KC_RALT , CM_Z ,  CM_X   ,  CM_C  ,   CM_D ,   CM_V , ADJUST ,KC_CAPS,     FKEYS  , _______, CM_UNDS,CM_K ,  CM_H , CM_COMM,CM_DOT,  KC_ENT,
+                                KC_MUTE, KC_ESC , KC_SPC , NUM    , NAV   ,     _______, SYM    , KC_RSFT,CM_QUOT, _RESET
     ),
 
 /*
- * Danish diactrics
+ * Sym Layer: Symbols
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |      |      |      |      |      |                              |      |      | Ú    | Ý    |      |        |
+ * |        |      |      | <    | >    | /    |                              |      | -    | +    | *    | !    |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        | Á    | Å    |      |      |      |                              |      |      | É    | Í    | Ø    |        |
+ * |        | (    | )    | {    | }    | |    |                              | @    | %    | =    | ~    | `    |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        | Æ    |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
+ * |        |      |      | [    | ]    | \    |      |      |  |      |      |      | #    | ^    | &    | $    |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
-    [_DK_DIACTRICS] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,                                     _______, _______, DK_UACU, DK_YACU, _______, _______,
-      _______, DK_AACU, DK_ACIR, _______, _______, _______,                                     _______, _______, DK_EACU, DK_IACU, DK_ODIA, _______,
-      _______, DK_ASH , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    [_SYM] = LAYOUT(
+      _______, _______, _______, CM_LABK, CM_RABK, CM_SLSH,                                     _______, CM_MINS, CM_PLUS, CM_ASTR, CM_EXLM, _______,
+      _______, CM_LPRN, CM_RPRN, CM_LCBR, CM_RCBR, CM_PIPE,                                     CM_AT  , CM_PERC, CM_EQL , CM_TILD, CM_GRV , CM_SCLN,
+      _______, _______, _______, CM_LBRC, CM_RBRC, CM_BSLS, _______, _______, _______, _______, _______, CM_HASH, CM_CIRC, CM_AMPR, CM_DLR , _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
+
 /*
  * Nav Layer: Media, navigation
  *
@@ -166,27 +183,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, _______,                                     KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_INS,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR,
                                 KC_PAUSE, _______, _______, _______, _______, _______, _______, _______, _______, _______
-    ),
-
-/*
- * Sym Layer: Symbols
- *
- * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |      |      | <    | >    | /    |                              | %    | -    | +    | *    | '    |        |
- * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        | (    | )    | {    | }    | |    |                              | @    | _    | =    | ~    | `    |        |
- * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      | [    | ]    | \    |      |      |  |      |      | ;    | #    | ^    | &    | $    | !      |
- * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        `----------------------------------'  `----------------------------------'
- */
-    [_SYM] = LAYOUT(
-      _______, _______, _______, CM_LABK, CM_RABK, CM_SLSH,                                     CM_PERC, CM_MINS, CM_PLUS, CM_ASTR, CM_QUOT, _______,
-      _______, CM_LPRN, CM_RPRN, CM_LCBR, CM_RCBR, CM_PIPE,                                     CM_AT  , CM_UNDS, CM_EQL , CM_TILD, CM_GRV , _______,
-      _______, _______, _______, CM_LBRC, CM_RBRC, CM_BSLS, _______, _______, _______, _______, CM_SCLN, CM_HASH, CM_CIRC, CM_AMPR, CM_DLR , CM_EXLM,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
 /*
@@ -296,54 +292,47 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #endif
 
 struct AltKey {
-    uint16_t trigger;
     uint16_t prefix;
     uint16_t key;
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+void process_combo_event(uint16_t combo_index, bool pressed) {
     uint8_t mod_state = get_mods();
 
-    const int key_len = 18;
     struct AltKey keys[] = {
-        { PL_EOGO, CM_G,  CM_E },
-        { PL_AOGO, CM_G,  CM_A },
-        { PL_EURO, KC_NO, CM_5 },
-        { PL_CACU, CM_T,  CM_C },
-        { PL_NACU, CM_T,  CM_N },
-        { PL_OACU, CM_T,  CM_O },
-        { PL_SACU, CM_T,  CM_S },
-        { PL_ZACU, CM_T,  CM_Z },
-        { PL_ZDOT, CM_DOT,CM_Z },
-        { PL_LSTR, KC_NO, CM_L },
+        [AE_DK_ASH] = { KC_NO, CM_Z },
 
-        { DK_UACU, CM_T,  CM_U },
-        { DK_YACU, CM_T,  CM_Y },
-        { DK_AACU, CM_T,  CM_A },
-        { DK_EACU, CM_T,  CM_E },
-        { DK_IACU, CM_T,  CM_I },
-        { DK_ACIR, KC_NO, CM_W },
-        { DK_ASH,  KC_NO, CM_Z },
-        { DK_ODIA, KC_NO, CM_P },
+        [ECO_PL_EOGO] = { CM_G,  CM_E },
+        [ACO_PL_AOGO] = { CM_G,  CM_A },
+        [OQU_PL_OACU] = { CM_T,  CM_O },
+        [SQU_PL_SACU] = { CM_T,  CM_S },
+        [ZQU_PL_ZACU] = { CM_T,  CM_Z },
+        [CQU_PL_CACU] = { CM_T,  CM_C },
+        [NQU_PL_NACU] = { CM_T,  CM_N },
+        [UQU_DK_UACU] = { CM_T,  CM_U },
+        [YQU_DK_YACU] = { CM_T,  CM_Y },
+        [AQU_DK_AACU] = { CM_T,  CM_A },
+        [EQU_DK_EACU] = { CM_T,  CM_E },
+        [IQU_DK_IACU] = { CM_T,  CM_I },
+
+        [ZDO_PL_ZDOT] = { CM_DOT,CM_Z },
+        [ADO_DK_ACIR] = { KC_NO, CM_W },
+
+        [LSL_PL_LSTR] = { KC_NO, CM_L },
+        [OSL_DK_ODIA] = { KC_NO, CM_P },
     };
 
-        for (int i = 0; i < key_len; i++) {
-            struct AltKey key = keys[i];
-            if (key.trigger == keycode) {
-                if (record->event.pressed) {
-                    if (key.prefix != KC_NO) {
-                        clear_mods();
-                        tap_code16(RALT(key.prefix));
-                        set_mods(mod_state);
+    struct AltKey key = keys[combo_index];
+    if (pressed) {
+        if (key.prefix != KC_NO) {
+            clear_mods();
+            tap_code16(RALT(key.prefix));
+            set_mods(mod_state);
 
-                        tap_code16(key.key);
-                    }
-                    else {
-                        tap_code16(RALT(key.key));
-                    }
-                }
-                break;
-            }
+            tap_code16(key.key);
         }
-    return true;
+        else {
+            tap_code16(RALT(key.key));
+        }
+    }
 }
