@@ -43,7 +43,7 @@ enum layers {
 #define T_FKEYS  TG(_FUNCTION)
 #define ADJUST   MO(_ADJUST)
 #define _RESET   TO(_COLEMAK_DH)
-#define TOGGLE   OSL(_TOGGLE)
+#define TOGGLE   TG(_TOGGLE)
 
 #define RS_SCLN MT(MOD_RSFT, CM_SCLN)
 
@@ -102,7 +102,7 @@ const uint16_t PROGMEM pl_zdot_combo[] = {CM_Z,   CM_DOT,  COMBO_END};
 const uint16_t PROGMEM dk_acir_combo[] = {HOME_A, CM_DOT,  COMBO_END};
 const uint16_t PROGMEM pl_lstr_combo[] = {CM_L,   HOME_S,  COMBO_END};
 const uint16_t PROGMEM dk_odia_combo[] = {HOME_O, HOME_S,  COMBO_END};
-const uint16_t PROGMEM you_combo[]     = {CM_U, CM_Y,  COMBO_END};
+const uint16_t PROGMEM you_combo[]     = {CM_U,   CM_Y,    COMBO_END};
 
 combo_t key_combos[] = {
     [AE_DK_ASH] = COMBO_ACTION(dk_ash_combo),
@@ -139,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * | AltGrp | Z    | X    | C    | D    | V    | ADJ  |      |  |      | CAPS | '    | K    | H    | ,    | .    | :      |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | MUTE | Esc  | Spc  |      |      |  |      | _    | ;    |      | REST |
+ *                        | MUTE | Esc  | Spc  |      |      |  |      | _    | ;    |      | TOGL |
  *                        |      |      |      | NUM  | NAV  |  | FKEY | SYM  | Rsft |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
@@ -149,14 +149,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_BSPC , CM_Q ,  CM_W   ,  CM_F  ,   CM_P ,   CM_B ,                                        CM_J,  CM_L  ,  CM_U , CM_Y   ,CM_QUES, KC_BSPC,
      KC_TAB  ,HOME_A,  HOME_R ,  HOME_S,  HOME_T,   CM_G ,                                        CM_M,  HOME_N, HOME_E, HOME_I ,HOME_O,  KC_ENT,
      KC_RALT , CM_Z ,  CM_X   ,  CM_C  ,   CM_D ,   CM_V , ADJUST ,_______,     _______, KC_CAPS, CM_QUOT,CM_K ,  CM_H , CM_COMM,CM_DOT,  CM_COLN,
-                                 TOGGLE, KC_ESC , KC_SPC , NUM    , NAV   ,     FKEYS  ,SYM_UNDS, RS_SCLN,_______, KC_MUTE
+                                 KC_MUTE,KC_ESC , KC_SPC , NUM    , NAV   ,     FKEYS  ,SYM_UNDS, RS_SCLN,_______, TOGGLE
     ),
 
     [_TOGGLE] = LAYOUT(
       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                                 _RESET , _______, _______, T_NUM  , T_NAV  , T_FKEYS, T_SYM  , _______, _______, _______
+                                 _______, _______, _______, T_NUM  , T_NAV  , T_FKEYS, T_SYM  , _______, _______, _RESET
     ),
 /*
  * Sym Layer: Symbols
@@ -176,7 +176,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, _______, CM_LABK, CM_RABK, CM_SLSH,                                     _______, CM_MINS, CM_PLUS, CM_ASTR, CM_EXLM, _______,
       _______, CM_LPRN, CM_RPRN, CM_LCBR, CM_RCBR, CM_PIPE,                                     CM_AT  , CM_PERC, CM_EQL , CM_TILD, CM_GRV , _______,
       _______, _______, _______, CM_LBRC, CM_RBRC, CM_BSLS, _______, _______, _______, _______, CM_DQUO, CM_HASH, CM_CIRC, CM_AMPR, CM_DLR , _______,
-                                 _RESET , _______, _______, _______, _______, _______, _______, _______, _______, _______
+                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
 /*
@@ -197,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, _______, _______, _______, _______,                                     KC_PGUP, KC_HOME, KC_UP,   KC_END,  _______, KC_DEL,
       _______, KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, _______,                                     KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_INS,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,KC_PAUSE, _______, KC_PSCR,
-                                 _RESET , _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE
+                                 KC_MUTE, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
 /*
@@ -218,7 +218,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, CM_SLSH, CM_1   , CM_2   , CM_3   , CM_PLUS,                                     _______, _______, _______, _______, _______, _______,
       _______, CM_0   , CM_4   , CM_5   , CM_6   , CM_MINS,                                     _______, KC_RCTL, KC_RSFT, KC_LALT, KC_RGUI, _______,
       _______, CM_ASTR, CM_7   , CM_8   , CM_9   , CM_EQL , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                                 _RESET , _______, _______, _______, _______, _______, _______, _______, _______, _______
+                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 /*
  * Function Layer: Function keys
@@ -238,7 +238,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,  KC_F12,  KC_F1 ,  KC_F2 ,  KC_F3 , _______,                                     _______, _______, _______, _______, _______, _______,
       _______,  KC_F10,  KC_F4 ,  KC_F5 ,  KC_F6 , _______,                                     _______, KC_RCTL, KC_RSFT, KC_LALT, KC_RGUI, _______,
       _______,  KC_F11,  KC_F7 ,  KC_F8 ,  KC_F9 , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                                 _RESET , _______, _______, _______, _______, _______, _______, _______, _______, _______
+                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
 /*
@@ -300,27 +300,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 bool encoder_update_user(uint8_t index, bool clockwise) {
     switch (get_highest_layer(layer_state|default_layer_state)) {
         case _NAV:
-            // Volume control
-            if (clockwise) {
-                tap_code(KC_UP);
-            } else {
-                tap_code(KC_DOWN);
+            if (index == 1) {
+                // Arrows
+                if (clockwise) {
+                    tap_code(KC_UP);
+                } else {
+                    tap_code(KC_DOWN);
+                }
             }
             break;
         default:
             if (index == 0) {
-                // Page up/Page down
-                if (clockwise) {
-                    tap_code(KC_WH_D);
-                } else {
-                    tap_code(KC_WH_U);
-                }
-            } else if (index == 1) {
                 // Volume control
                 if (clockwise) {
                     tap_code(KC_VOLU);
                 } else {
                     tap_code(KC_VOLD);
+                }
+            } else if (index == 1) {
+                // Page up/Page down
+                if (clockwise) {
+                    tap_code(KC_WH_D);
+                } else {
+                    tap_code(KC_WH_U);
                 }
             }
             break;
