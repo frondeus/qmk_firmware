@@ -27,3 +27,4 @@
 // Lets you roll mod-tap keys
 #define IGNORE_MOD_TAP_INTERRUPT
 #define TAPPING_TOGGLE 2
+#define ONESHOT_TAP_TOGGLE 1
