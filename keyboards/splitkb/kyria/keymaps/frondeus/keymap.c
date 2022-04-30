@@ -18,21 +18,22 @@
 #include "sendstring_colemak.h"
 
 enum layers {
-    _COLEMAK_DH = 0,
-    _NUM,
-    _SYM,
-    _NAV,
-    _FUNCTION,
-    _ADJUST,
-    _TOGGLE
+    _COLEMAK_DH = 0, // Default layer - requires Colemak (Not DH tho!) installed and active in OS
+    _COLEMAK_EMU, // Colemak emulated, for OS with classic QWERTY layout. Handy in BIOS and stuff. Does not support polish/danish characters
+    _NUM, // Numbers
+    _SYM, // Symbols
+    _NAV, // Navigation, arrows
+    _FUNCTION, // F1-F12
+    _ADJUST, // Change RGB, change layout
+    _TOGGLE // Makes some layers toggable so you can write without held thumb
 };
 
 
-/* #define QWERTY   DF(_QWERTY) */
+#define COLEMAK   DF(_COLEMAK_DH)
+#define COLEMU   DF(_COLEMAK_EMU)
 /* #define QWERDH   DF(_QWERTY_DH) */
 //#define COLEMAK  DF(_COLEMAK_DH)
 
-#define SYM_UNDS LT(_SYM, CM_UNDS)
 /* #define SYM      MO(_SYM) */
 #define NAV      MO(_NAV)
 #define NUM      MO(_NUM)
@@ -45,16 +46,27 @@ enum layers {
 #define _RESET   TO(_COLEMAK_DH)
 #define TOGGLE   TG(_TOGGLE)
 
-#define RS_SCLN MT(MOD_RSFT, CM_SCLN)
+#define RS_SCLN  MT(MOD_RSFT, CM_SCLN)
+#define SYM_UNDS LT(_SYM,     CM_UNDS)
+#define HOME_A   MT(MOD_LGUI, CM_A)
+#define HOME_R   MT(MOD_LALT, CM_R)
+#define HOME_S   MT(MOD_LSFT, CM_S)
+#define HOME_T   MT(MOD_LCTL, CM_T)
+#define HOME_N   MT(MOD_RCTL, CM_N)
+#define HOME_E   MT(MOD_RSFT, CM_E)
+#define HOME_I   MT(MOD_LALT, CM_I)
+#define HOME_O   MT(MOD_RGUI, CM_O)
 
-#define HOME_A  MT(MOD_LGUI, CM_A)
-#define HOME_R  MT(MOD_LALT, CM_R)
-#define HOME_S  MT(MOD_LSFT, CM_S)
-#define HOME_T  MT(MOD_LCTL, CM_T)
-#define HOME_N  MT(MOD_RCTL, CM_N)
-#define HOME_E  MT(MOD_RSFT, CM_E)
-#define HOME_I  MT(MOD_LALT, CM_I)
-#define HOME_O  MT(MOD_RGUI, CM_O)
+#define CE_RS_SCLN  MT(MOD_RSFT, KC_SCLN)
+#define CE_SYM_UNDS LT(_SYM,     KC_UNDS)
+#define CE_H_A   MT(MOD_LGUI, KC_A)
+#define CE_H_R   MT(MOD_LALT, KC_R)
+#define CE_H_S   MT(MOD_LSFT, KC_S)
+#define CE_H_T   MT(MOD_LCTL, KC_T)
+#define CE_H_N   MT(MOD_RCTL, KC_N)
+#define CE_H_E   MT(MOD_RSFT, KC_E)
+#define CE_H_I   MT(MOD_LALT, KC_I)
+#define CE_H_O   MT(MOD_RGUI, KC_O)
 
 enum combos {
     AE_DK_ASH,   // Æ
@@ -256,12 +268,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_ADJUST] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,                                    _______, _______, _______, _______,  _______, _______,
+      _______, COLEMAK,  COLEMU, _______, _______, _______,                                    _______, _______, _______, _______,  _______, _______,
       _______, _______, _______, _______, _______, _______,                                    RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI,  RGB_MOD, _______,
       _______, _______, _______, _______, _______, _______,_______, _______, _______, _______, _______, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD, _______,
                                  _______, _______, _______,_______, _______, _______, _______, _______, _______, _______
     ),
 
+/*
+ * Base Layer: Colemak emulated
+ *
+ * ,-------------------------------------------.                              ,-------------------------------------------.
+ * | Bksp   | Q    |  W   |  F   | P    | B    |                              | J    | L    | U    | Y    | ?    | Bksp   |
+ * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+ * | Tab    | A    | R    | S    | T    | G    |                              | M    | N    | E    | I    | O    | Ent    |
+ * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+ * | AltGrp | Z    | X    | C    | D    | V    | ADJ  |      |  |      | CAPS | '    | K    | H    | ,    | .    | :      |
+ * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+ *                        | MUTE | Esc  | Spc  |      |      |  |      | _    | ;    |      | TOGL |
+ *                        |      |      |      | NUM  | NAV  |  | FKEY | SYM  | Rsft |      |      |
+ *                        `----------------------------------'  `----------------------------------'
+ */
+
+
+    [_COLEMAK_EMU] = LAYOUT(
+     KC_BSPC , KC_Q ,  KC_W   ,  KC_F  ,   KC_P ,   KC_B ,                                        KC_J,  KC_L  ,  KC_U , KC_Y   ,KC_QUES, KC_BSPC,
+     KC_TAB  ,CE_H_A,  CE_H_R ,  CE_H_S,  CE_H_T,   KC_G ,                                        KC_M,  CE_H_N, CE_H_E, CE_H_I ,CE_H_O,  KC_ENT,
+     KC_RALT , KC_Z ,  KC_X   ,  KC_C  ,   KC_D ,   KC_V , ADJUST ,_______,     _______, KC_CAPS, KC_QUOT,KC_K ,  KC_H , KC_COMM,KC_DOT,  KC_COLN,
+                                 KC_MUTE,KC_ESC , KC_SPC , NUM    , NAV   ,     FKEYS  ,CE_SYM_UNDS, CE_RS_SCLN,_______, TOGGLE
+    ),
 // /*
 //  * Layer template
 //  *
