@@ -298,7 +298,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    switch (get_highest_layer(layer_state|default_layer_state)) {
+    switch (get_highest_layer((layer_state&(~(1<<_TOGGLE)))|default_layer_state)) {
         case _NAV:
             if (index == 1) {
                 // Arrows
