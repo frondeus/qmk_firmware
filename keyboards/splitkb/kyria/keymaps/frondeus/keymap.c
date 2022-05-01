@@ -20,6 +20,7 @@
 enum layers {
     _COLEMAK_DH = 0, // Default layer - requires Colemak (Not DH tho!) installed and active in OS
     _COLEMAK_EMU, // Colemak emulated, for OS with classic QWERTY layout. Handy in BIOS and stuff. Does not support polish/danish characters
+    _QWERTY,
     _NUM, // Numbers
     _SYM, // Symbols
     _NAV, // Navigation, arrows
@@ -31,6 +32,7 @@ enum layers {
 
 #define COLEMAK   DF(_COLEMAK_DH)
 #define COLEMU   DF(_COLEMAK_EMU)
+#define QWERTY   DF(_QWERTY)
 /* #define QWERDH   DF(_QWERTY_DH) */
 //#define COLEMAK  DF(_COLEMAK_DH)
 
@@ -257,7 +259,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Adjust Layer: Default layer settings, RGB
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+ * |        | Colm |Colemu|Qwerty|      |      |                              |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |                              | TOG  | SAI  | HUI  | VAI  | MOD  |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
@@ -268,7 +270,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_ADJUST] = LAYOUT(
-      _______, COLEMAK,  COLEMU, _______, _______, _______,                                    _______, _______, _______, _______,  _______, _______,
+      _______, COLEMAK,  COLEMU, QWERTY , _______, _______,                                    _______, _______, _______, _______,  _______, _______,
       _______, _______, _______, _______, _______, _______,                                    RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI,  RGB_MOD, _______,
       _______, _______, _______, _______, _______, _______,_______, _______, _______, _______, _______, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD, _______,
                                  _______, _______, _______,_______, _______, _______, _______, _______, _______, _______
@@ -295,6 +297,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TAB  ,CE_H_A,  CE_H_R ,  CE_H_S,  CE_H_T,   KC_G ,                                        KC_M,  CE_H_N, CE_H_E, CE_H_I ,CE_H_O,  KC_ENT,
      KC_RALT , KC_Z ,  KC_X   ,  KC_C  ,   KC_D ,   KC_V , ADJUST ,_______,     _______, KC_CAPS, KC_QUOT,KC_K ,  KC_H , KC_COMM,KC_DOT,  KC_COLN,
                                  KC_MUTE,KC_ESC , KC_SPC , NUM    , NAV   ,     FKEYS  ,CE_SYM_UNDS, CE_RS_SCLN,_______, TOGGLE
+    ),
+/*
+ * Base Layer: QWERTY native for gaming
+ *
+ * ,-------------------------------------------.                              ,-------------------------------------------.
+ * | Bksp   | Q    |  W   |  F   | P    | B    |                              | J    | L    | U    | Y    | ?    | Bksp   |
+ * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+ * | Tab    | A    | R    | S    | T    | G    |                              | M    | N    | E    | I    | O    | Ent    |
+ * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+ * | AltGrp | Z    | X    | C    | D    | V    | ADJ  |      |  |      | CAPS | '    | K    | H    | ,    | .    | :      |
+ * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+ *                        | MUTE | Esc  | Spc  |      |      |  |      | _    | ;    |      | TOGL |
+ *                        |      |      |      | NUM  | NAV  |  | FKEY | SYM  | Rsft |      |      |
+ *                        `----------------------------------'  `----------------------------------'
+ */
+    [_QWERTY] = LAYOUT(
+     KC_TAB , KC_Q ,  KC_W   ,  KC_E  ,   KC_R ,   KC_T ,                                        KC_Y,  KC_U  ,  KC_I , KC_O   ,KC_P,    KC_BSPC,
+     KC_LSFT, KC_A,   KC_S   ,  KC_D,     KC_F,    KC_G ,                                     KC_COLN,  KC_H  ,  KC_J , KC_K   ,KC_L,    KC_ENT,
+     KC_LCTL, KC_Z ,  KC_X   ,  KC_C  ,   KC_D ,   KC_V , ADJUST ,_______,     _______, KC_CAPS, KC_QUOT,KC_N ,  KC_M , KC_COMM,KC_DOT,  KC_RALT,
+                                KC_MUTE,KC_ESC , KC_SPC , NUM    , NAV   ,     FKEYS  ,CE_SYM_UNDS, CE_RS_SCLN,_______, TOGGLE
     ),
 // /*
 //  * Layer template
