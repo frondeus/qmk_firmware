@@ -25,6 +25,7 @@ enum layers {
     _SYM, // Symbols
     _NAV, // Navigation, arrows
     _FUNCTION, // F1-F12
+    _I3, // I3wm layer
     _ADJUST, // Change RGB, change layout
     _TOGGLE // Makes some layers toggable so you can write without held thumb
 };
@@ -40,9 +41,11 @@ enum layers {
 #define NAV      MO(_NAV)
 #define NUM      MO(_NUM)
 #define FKEYS    MO(_FUNCTION)
+#define I3       LM(_I3, MOD_LGUI)
 #define T_SYM    TG(_SYM)
 #define T_NAV    TG(_NAV)
 #define T_NUM    TG(_NUM)
+#define T_I3     TG(_I3)
 #define T_FKEYS  TG(_FUNCTION)
 #define ADJUST   MO(_ADJUST)
 #define _RESET   TO(_COLEMAK_DH)
@@ -196,14 +199,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_BSPC , CM_Q ,  CM_W   ,  CM_F  ,   CM_P ,   CM_B ,                                        CM_J,  CM_L  ,  CM_U , CM_Y   ,CM_QUES, KC_BSPC,
      KC_TAB  ,HOME_A,  HOME_R ,  HOME_S,  HOME_T,   CM_G ,                                        CM_M,  HOME_N, HOME_E, HOME_I ,HOME_O,  KC_ENT,
      KC_RALT , CM_Z ,  CM_X   ,  CM_C  ,   CM_D ,   CM_V , ADJUST ,_______,     _______, KC_CAPS, CM_QUOT,CM_K ,  CM_H , CM_COMM,CM_DOT,  CM_SCLN,
-                                 KC_MUTE,KC_ESC , KC_SPC , NUM    , NAV   ,     FKEYS  ,SYM_UNDS, RS_COLN,_______, TOGGLE
+                                 KC_MUTE,KC_ESC , KC_SPC , NUM    , NAV   ,     FKEYS  ,SYM_UNDS, RS_COLN,    I3 , TOGGLE
     ),
 
     [_TOGGLE] = LAYOUT(
       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                                 _______, _______, _______, T_NUM  , T_NAV  , T_FKEYS, T_SYM  , _______, _______, _RESET
+                                 _______, _______, _______, T_NUM  , T_NAV  , T_FKEYS, T_SYM  , _______,    T_I3, _RESET
     ),
 /*
  * Sym Layer: Symbols
@@ -285,6 +288,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,  KC_F12,  KC_F1 ,  KC_F2 ,  KC_F3 , _______,                                     _______, _______, _______, _______, _______, _______,
       _______,  KC_F10,  KC_F4 ,  KC_F5 ,  KC_F6 , _______,                                     _______, KC_RCTL, KC_RSFT, KC_LALT, KC_RGUI, _______,
       _______,  KC_F11,  KC_F7 ,  KC_F8 ,  KC_F9 , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
+
+/*
+ * I3 Layer
+ *
+ * ,-------------------------------------------.                              ,-------------------------------------------.
+ * |        | 7    | 1    | 2    | 3    | 0    |                              | 9    | 4    | 5    | 6    | 8    |        |
+ * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+ * |        |Parent|LAlt  |LShift|LCtrl |      |                              |Fullsc|Left  |Down  |Up    |Right |        |
+ * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+ * |        |Child |      |      |      |      |      |      |  |      |      |NxtFre|Horizo|Vertic|Layout|Resize|        |
+ * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+ *                        |      |      | Run  |      |      |  |      |      |      |      |      |
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        `----------------------------------'  `----------------------------------'
+ */
+    [_I3] = LAYOUT(
+      _______, KC_7   , KC_1   , KC_2   , KC_3   , KC_0   ,                                     KC_9   , KC_4   , KC_5   , KC_6   , KC_8   , _______,
+      _______, CM_A   , KC_LALT, KC_LSFT, KC_LCTL, _______,                                     CM_F   , CM_H   , CM_J   , CM_K   , CM_L   , _______,
+      _______, CM_Z   , _______, _______, _______, _______, _______, _______, _______, _______, CM_GRV , CM_G   , CM_V   , CM_T   , CM_R   , _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
