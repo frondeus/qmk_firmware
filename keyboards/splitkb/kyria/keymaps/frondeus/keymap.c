@@ -295,7 +295,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * I3 Layer
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        | 7    | 1    | 2    | 3    | 0    |                              | 9    | 4    | 5    | 6    | 8    |        |
+ * |Lck/Quit| 7    | 1    | 2    | 3    | 0    |                              | 9    | 4    | 5    | 6    | 8    |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        |Parent|LAlt  |LShift|LCtrl |      |                              |Fullsc|Left  |Down  |Up    |Right |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
@@ -306,7 +306,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_I3] = LAYOUT(
-      _______, KC_7   , KC_1   , KC_2   , KC_3   , KC_0   ,                                     KC_9   , KC_4   , KC_5   , KC_6   , KC_8   , _______,
+      CM_Q   , KC_7   , KC_1   , KC_2   , KC_3   , KC_0   ,                                     KC_9   , KC_4   , KC_5   , KC_6   , KC_8   , _______,
       _______, CM_A   , KC_LALT, KC_LSFT, KC_LCTL, _______,                                     CM_F   , CM_H   , CM_J   , CM_K   , CM_L   , _______,
       _______, CM_Z   , _______, _______, _______, _______, _______, _______, _______, _______, CM_GRV , CM_G   , CM_V   , CM_T   , CM_R   , _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -425,6 +425,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 bool encoder_update_user(uint8_t index, bool clockwise) {
     switch (get_highest_layer((layer_state&(~(1<<_TOGGLE)))|default_layer_state)) {
         case _NAV:
+            if (index == 0) {
+                // Tabs in browser
+                if (clockwise) {
+                    tap_code16(C(KC_TAB));
+                }
+                else {
+                    tap_code16(S(C(KC_TAB)));
+                }
+            }
             if (index == 1) {
                 // Arrows
                 if (clockwise) {
@@ -434,6 +443,23 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 }
             }
             break;
+        case _I3:
+            if (index == 0) {
+                // Workspace in output
+                if (clockwise) {
+                    tap_code16(C(KC_TAB));
+                }
+                else {
+                    tap_code16(S(C(KC_TAB)));
+                }
+            }
+            else if (index == 1) {
+                if (clockwise) {
+                    tap_code(CM_L);
+                } else {
+                    tap_code(CM_H);
+                }
+            }
         default:
             if (index == 0) {
                 // Volume control
