@@ -51,6 +51,7 @@ enum layers {
 #define _RESET   TO(_COLEMAK_DH)
 #define TOGGLE   TG(_TOGGLE)
 
+#define ESC_NAV  LT(_NAV,     KC_ESC)
 #define RS_COLN  MT(MOD_RSFT, CM_COLN)
 #define SYM_UNDS LT(_SYM,     CM_UNDS)
 #define HOME_A   MT(MOD_LGUI, CM_A)
@@ -190,7 +191,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | AltGrp | Z    | X    | C    | D    | V    | ADJ  |      |  |      | CAPS | '    | K    | H    | ,    | .    | :      |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        | MUTE | Esc  | Spc  |      |      |  |      | _    | ;    |      | TOGL |
- *                        |      |      |      | NUM  | NAV  |  | FKEY | SYM  | Rsft |      |      |
+ *                        |      | NAV  |      | NUM  |      |  | FKEY | SYM  | Rsft | I3   |      |
  *                        `----------------------------------'  `----------------------------------'
  */
 
@@ -199,14 +200,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_BSPC , CM_Q ,  CM_W   ,  CM_F  ,   CM_P ,   CM_B ,                                        CM_J,  CM_L  ,  CM_U , CM_Y   ,CM_QUES, KC_BSPC,
      KC_TAB  ,HOME_A,  HOME_R ,  HOME_S,  HOME_T,   CM_G ,                                        CM_M,  HOME_N, HOME_E, HOME_I ,HOME_O,  KC_ENT,
      KC_RALT , CM_Z ,  CM_X   ,  CM_C  ,   CM_D ,   CM_V , ADJUST ,_______,     _______, KC_CAPS, CM_QUOT,CM_K ,  CM_H , CM_COMM,CM_DOT,  CM_SCLN,
-                                 KC_MUTE,KC_ESC , KC_SPC , NUM    , NAV   ,     FKEYS  ,SYM_UNDS, RS_COLN,    I3 , TOGGLE
+                                 KC_MUTE,ESC_NAV, KC_SPC , NUM    ,_______,     FKEYS  ,SYM_UNDS, RS_COLN,    I3 , TOGGLE
     ),
 
     [_TOGGLE] = LAYOUT(
       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                                 _______, _______, _______, T_NUM  , T_NAV  , T_FKEYS, T_SYM  , _______,    T_I3, _RESET
+                                 _______, T_NAV  , _______, T_NUM  , _______, T_FKEYS, T_SYM  , _______,    T_I3, _RESET
     ),
 /*
  * Sym Layer: Symbols
@@ -344,7 +345,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | AltGrp | Z    | X    | C    | D    | V    | ADJ  |      |  |      | CAPS | '    | K    | H    | ,    | .    | :      |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        | MUTE | Esc  | Spc  |      |      |  |      | _    | ;    |      | TOGL |
- *                        |      |      |      | NUM  | NAV  |  | FKEY | SYM  | Rsft |      |      |
+ *                        |      | NAV  |      | NUM  |      |  | FKEY | SYM  | Rsft | I3   |      |
  *                        `----------------------------------'  `----------------------------------'
  */
 
@@ -353,7 +354,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_BSPC , KC_Q ,  KC_W   ,  KC_F  ,   KC_P ,   KC_B ,                                        KC_J,  KC_L  ,  KC_U , KC_Y   ,KC_QUES, KC_BSPC,
      KC_TAB  ,CE_H_A,  CE_H_R ,  CE_H_S,  CE_H_T,   KC_G ,                                        KC_M,  CE_H_N, CE_H_E, CE_H_I ,CE_H_O,  KC_ENT,
      KC_RALT , KC_Z ,  KC_X   ,  KC_C  ,   KC_D ,   KC_V , ADJUST ,_______,     _______, KC_CAPS, KC_QUOT,KC_K ,  KC_H , KC_COMM,KC_DOT,  KC_SCLN,
-                                 KC_MUTE,KC_ESC , KC_SPC , NUM    , NAV   ,     FKEYS  ,CE_SYM_UNDS, CE_RS_COLN,_______, TOGGLE
+                                 KC_MUTE,ESC_NAV, KC_SPC , NUM    ,_______,     FKEYS  ,CE_SYM_UNDS, CE_RS_COLN,    I3 , TOGGLE
     ),
 /*
  * Base Layer: QWERTY native for gaming
@@ -366,14 +367,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | AltGrp | Z    | X    | C    | D    | V    | ADJ  |      |  |      | CAPS | '    | K    | H    | ,    | .    | :      |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        | MUTE | Esc  | Spc  |      |      |  |      | _    | ;    |      | TOGL |
- *                        |      |      |      | NUM  | NAV  |  | FKEY | SYM  | Rsft |      |      |
+ *                        |      | NAV  |      | NUM  |      |  | FKEY | SYM  | Rsft | I3   |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_QWERTY] = LAYOUT(
      KC_TAB , KC_Q ,  KC_W   ,  KC_E  ,   KC_R ,   KC_T ,                                        KC_Y,  KC_U  ,  KC_I , KC_O   ,KC_P,    KC_BSPC,
      KC_LSFT, KC_A,   KC_S   ,  KC_D,     KC_F,    KC_G ,                                     KC_SCLN,  KC_H  ,  KC_J , KC_K   ,KC_L,    KC_ENT,
      KC_LCTL, KC_Z ,  KC_X   ,  KC_C  ,   KC_D ,   KC_V , ADJUST ,_______,     _______, KC_CAPS, KC_QUOT,KC_N ,  KC_M , KC_COMM,KC_DOT,  KC_RALT,
-                                KC_MUTE,KC_ESC , KC_SPC , NUM    , NAV   ,     FKEYS  ,CE_SYM_UNDS, CE_RS_COLN,_______, TOGGLE
+                                KC_MUTE,ESC_NAV, KC_SPC , NUM    ,_______,     FKEYS  ,CE_SYM_UNDS, CE_RS_COLN,    I3 , TOGGLE
     ),
 // /*
 //  * Layer template
