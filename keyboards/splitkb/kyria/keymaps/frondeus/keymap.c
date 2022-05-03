@@ -184,20 +184,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Base Layer: Colemak
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * | Bksp   | Q    |  W   |  F   | P    | B    |                              | J    | L    | U    | Y    | ?    | Bksp   |
+ * | Delete | Q    |  W   |  F   | P    | B    |                              | J    | L    | U    | Y    | ?    | Bksp   |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * | Tab    | A    | R    | S    | T    | G    |                              | M    | N    | E    | I    | O    | Ent    |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | AltGrp | Z    | X    | C    | D    | V    | ADJ  |      |  |      | CAPS | '    | K    | H    | ,    | .    | :      |
+ * | AltGrp | Z    | X    | C    | D    | V    | ADJ  |      |  |      | CAPS | '    | K    | H    | ,    | .    | ;      |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | MUTE | Esc  | Spc  |      |      |  |      | _    | ;    |      | TOGL |
- *                        |      | NAV  |      | NUM  |      |  | FKEY | SYM  | Rsft | I3   |      |
+ *                        | MUTE | Esc  | Spc  |      |      |  |      | _    | :    |      | TOGL |
+ *                        | Vol+-| NAV  |      | NUM  |      |  | FKEY | SYM  | Rsft | I3   |Scrl+-|
  *                        `----------------------------------'  `----------------------------------'
  */
 
 
     [_COLEMAK_DH] = LAYOUT(
-     KC_BSPC , CM_Q ,  CM_W   ,  CM_F  ,   CM_P ,   CM_B ,                                        CM_J,  CM_L  ,  CM_U , CM_Y   ,CM_QUES, KC_BSPC,
+     KC_DEL  , CM_Q ,  CM_W   ,  CM_F  ,   CM_P ,   CM_B ,                                        CM_J,  CM_L  ,  CM_U , CM_Y   ,CM_QUES, KC_BSPC,
      KC_TAB  ,HOME_A,  HOME_R ,  HOME_S,  HOME_T,   CM_G ,                                        CM_M,  HOME_N, HOME_E, HOME_I ,HOME_O,  KC_ENT,
      KC_RALT , CM_Z ,  CM_X   ,  CM_C  ,   CM_D ,   CM_V , ADJUST ,_______,     _______, KC_CAPS, CM_QUOT,CM_K ,  CM_H , CM_COMM,CM_DOT,  CM_SCLN,
                                  KC_MUTE,ESC_NAV, KC_SPC , NUM    ,_______,     FKEYS  ,SYM_UNDS, RS_COLN,    I3 , TOGGLE
@@ -234,21 +234,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Nav Layer: Media, navigation
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |      |      |      |      |      |                              | PgUp | Home | PgDn | End  | VolUp| Delete |
+ * |        |      |      |      |      |      |                              | PgUp | Home | PgDn | End  |Insert|        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |  GUI |  Alt | Shift| Ctrl |      |                              |  ←   |   ↓  |   ↑  |   →  | VolDn| Insert |
+ * |        |  GUI |  Alt | Shift| Ctrl |      |                              |  ←   |   ↓  |   ↑  |   →  |PrtScr|        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |ScLck |  |      |      | Pause|M Prev|M Play|M Next|VolMut| PrtSc  |
+ * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        |PAUSE |      |      |      |      |  |      |      |      |      |      |
+ *                        |Song+-|      |      |      |      |  |      |      |      |      |Tab+- |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_NAV] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,                                     KC_PGUP, KC_HOME, KC_UP,   KC_END,  _______, KC_DEL,
-      _______, KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, _______,                                     KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_INS,
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,KC_PAUSE, _______, KC_PSCR,
-                                 KC_MUTE, _______, _______, _______, _______, _______, _______, _______, _______, _______
+      _______, _______, _______, _______, _______, _______,                                     KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_INS , _______,
+      _______, KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, _______,                                     KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_PSCR, _______,
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                                 KC_MPLY, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
 /*
@@ -303,7 +303,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |Child |      |      |      |      |      |      |  |      |      |NxtFre|Horizo|Vertic|Layout|Resize|        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      | Run  |      |      |  |      |      |      |      |      |
- *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        |Work+-|      |      |      |      |  |      |      |      |      |Win+- |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_I3] = LAYOUT(
@@ -342,10 +342,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * | Tab    | A    | R    | S    | T    | G    |                              | M    | N    | E    | I    | O    | Ent    |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | AltGrp | Z    | X    | C    | D    | V    | ADJ  |      |  |      | CAPS | '    | K    | H    | ,    | .    | :      |
+ * | AltGrp | Z    | X    | C    | D    | V    | ADJ  |      |  |      | CAPS | '    | K    | H    | ,    | .    | ;      |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | MUTE | Esc  | Spc  |      |      |  |      | _    | ;    |      | TOGL |
- *                        |      | NAV  |      | NUM  |      |  | FKEY | SYM  | Rsft | I3   |      |
+ *                        | MUTE | Esc  | Spc  |      |      |  |      | _    | :    |      | TOGL |
+ *                        | Vol+-| NAV  |      | NUM  |      |  | FKEY | SYM  | Rsft | I3   |Scrl+-|
  *                        `----------------------------------'  `----------------------------------'
  */
 
@@ -364,10 +364,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * | Tab    | A    | R    | S    | T    | G    |                              | M    | N    | E    | I    | O    | Ent    |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | AltGrp | Z    | X    | C    | D    | V    | ADJ  |      |  |      | CAPS | '    | K    | H    | ,    | .    | :      |
+ * | AltGrp | Z    | X    | C    | D    | V    | ADJ  |      |  |      | CAPS | '    | K    | H    | ,    | .    | ;      |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | MUTE | Esc  | Spc  |      |      |  |      | _    | ;    |      | TOGL |
- *                        |      | NAV  |      | NUM  |      |  | FKEY | SYM  | Rsft | I3   |      |
+ *                        | MUTE | Esc  | Spc  |      |      |  |      | _    | :    |      | TOGL |
+ *                        | Vol+-| NAV  |      | NUM  |      |  | FKEY | SYM  | Rsft | I3   |Scrl+-|
  *                        `----------------------------------'  `----------------------------------'
  */
     [_QWERTY] = LAYOUT(
@@ -427,20 +427,20 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     switch (get_highest_layer((layer_state&(~(1<<_TOGGLE)))|default_layer_state)) {
         case _NAV:
             if (index == 0) {
+                // Songs
+                if (clockwise) {
+                    tap_code16(KC_MEDIA_NEXT_TRACK);
+                } else {
+                    tap_code16(KC_MEDIA_PREV_TRACK);
+                }
+            } else
+            if (index == 1) {
                 // Tabs in browser
                 if (clockwise) {
                     tap_code16(C(KC_TAB));
                 }
                 else {
                     tap_code16(S(C(KC_TAB)));
-                }
-            }
-            if (index == 1) {
-                // Arrows
-                if (clockwise) {
-                    tap_code(KC_UP);
-                } else {
-                    tap_code(KC_DOWN);
                 }
             }
             break;
