@@ -234,9 +234,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Nav Layer: Media, navigation
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |      |      |      |      |      |                              | PgUp | Home | PgDn | End  |Insert|        |
+ * |        |      |      |      |      |      |                              | PgUp | Home |  ↑   | End  |Insert|        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |  GUI |  Alt | Shift| Ctrl |      |                              |  ←   |   ↓  |   ↑  |   →  |PrtScr|        |
+ * |        |  GUI |  Alt | Shift| Ctrl |      |                              | PdDn |   ←  |  ↓   |   →  |PrtScr|        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
@@ -360,11 +360,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Base Layer: QWERTY native for gaming
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * | Bksp   | Q    |  W   |  F   | P    | B    |                              | J    | L    | U    | Y    | ?    | Bksp   |
+ * | Tab    | Q    |  W   | E    | R    | T    |                              | Y    | U    | I    | O    | P    | Bksp   |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * | Tab    | A    | R    | S    | T    | G    |                              | M    | N    | E    | I    | O    | Ent    |
+ * | LShift | A    | S    | D    | F    | G    |                              | ;    | H    | J    | K    | L    | Ent    |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | AltGrp | Z    | X    | C    | D    | V    | ADJ  |      |  |      | CAPS | '    | K    | H    | ,    | .    | ;      |
+ * | LCtrl  | Z    | X    | C    | V    | B    | ADJ  |      |  |      | CAPS | '    | N    | M    | ,    | .    | RAlt   |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        | MUTE | Esc  | Spc  |      |      |  |      | _    | :    |      | TOGL |
  *                        | Vol+-| NAV  |      | NUM  |      |  | FKEY | SYM  | Rsft | I3   |Scrl+-|
@@ -373,7 +373,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
      KC_TAB , KC_Q ,  KC_W   ,  KC_E  ,   KC_R ,   KC_T ,                                        KC_Y,  KC_U  ,  KC_I , KC_O   ,KC_P,    KC_BSPC,
      KC_LSFT, KC_A,   KC_S   ,  KC_D,     KC_F,    KC_G ,                                     KC_SCLN,  KC_H  ,  KC_J , KC_K   ,KC_L,    KC_ENT,
-     KC_LCTL, KC_Z ,  KC_X   ,  KC_C  ,   KC_D ,   KC_V , ADJUST ,_______,     _______, KC_CAPS, KC_QUOT,KC_N ,  KC_M , KC_COMM,KC_DOT,  KC_RALT,
+     KC_LCTL, KC_Z ,  KC_X   ,  KC_C  ,   KC_V ,   KC_B , ADJUST ,_______,     _______, KC_CAPS, KC_QUOT,KC_N ,  KC_M , KC_COMM,KC_DOT,  KC_RALT,
                                 KC_MUTE,ESC_NAV, KC_SPC , NUM    ,_______,     FKEYS  ,CE_SYM_UNDS, CE_RS_COLN,    I3 , TOGGLE
     ),
 // /*
