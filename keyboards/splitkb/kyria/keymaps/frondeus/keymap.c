@@ -74,6 +74,8 @@ enum layers {
 #define CE_H_I   MT(MOD_LALT, KC_I)
 #define CE_H_O   MT(MOD_RGUI, KC_O)
 
+#define EMACS    RSG(KC_QUOT)
+
 enum combos {
     AE_DK_ASH,   // Æ
 
@@ -190,8 +192,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * | AltGrp | Z    | X    | C    | D    | V    | ADJ  |      |  |      | CAPS | '    | K    | H    | ,    | .    | ;      |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | MUTE | Esc  | Spc  |      |      |  |      | _    | :    |      | TOGL |
- *                        | Vol+-| NAV  |      | NUM  |      |  | FKEY | SYM  | Rsft | I3   |Scrl+-|
+ *                        | MUTE | Esc  | Spc  |      |      |  |      |      | _    |      | TOGL |
+ *                        | Vol+-|      |      | NUM  |      |  | FKEY | NAV  | SYM  | I3   |Scrl+-|
  *                        `----------------------------------'  `----------------------------------'
  */
 
@@ -200,14 +202,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_DEL  , CM_Q ,  CM_W   ,  CM_F  ,   CM_P ,   CM_B ,                                        CM_J,  CM_L  ,  CM_U , CM_Y   ,CM_QUES, KC_BSPC,
      KC_TAB  ,HOME_A,  HOME_R ,  HOME_S,  HOME_T,   CM_G ,                                        CM_M,  HOME_N, HOME_E, HOME_I ,HOME_O,  KC_ENT,
      KC_RALT , CM_Z ,  CM_X   ,  CM_C  ,   CM_D ,   CM_V , ADJUST ,_______,     _______, KC_CAPS, CM_QUOT,CM_K ,  CM_H , CM_COMM,CM_DOT,  CM_SCLN,
-                                 KC_MUTE,ESC_NAV, KC_SPC , NUM    ,_______,     FKEYS  ,SYM_UNDS, RS_COLN,    I3 , TOGGLE
+                                 KC_MUTE,KC_ESC , KC_SPC , NUM    ,_______,     FKEYS  , NAV , SYM_UNDS,    I3 , TOGGLE
     ),
 
     [_TOGGLE] = LAYOUT(
       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                                 _______, T_NAV  , _______, T_NUM  , _______, T_FKEYS, T_SYM  , _______,    T_I3, _RESET
+                                 _______, _______, _______, T_NUM  , _______, T_FKEYS, T_NAV  , T_SYM  ,    T_I3, _RESET
     ),
 /*
  * Sym Layer: Symbols
@@ -217,17 +219,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        | (    | )    | {    | }    | /    |                              | @    | %    | =    | ~    | `    |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      | [    | ]    | \    |      |      |  |      |      | "    | #    | ^    | &    | $    |        |
+ * |        |      |      | [    | ]    | \    |      |      |  |      |      | "    | #    | ^    | &    | $    | :      |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        |      |      | :    |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_SYM] = LAYOUT(
       _______, _______, _______, CM_LABK, CM_RABK, CM_PIPE,                                     _______, CM_MINS, CM_PLUS, CM_ASTR, CM_EXLM, _______,
       _______, CM_LPRN, CM_RPRN, CM_LCBR, CM_RCBR, CM_SLSH,                                     CM_AT  , CM_PERC, CM_EQL , CM_TILD, CM_GRV , _______,
-      _______, _______, _______, CM_LBRC, CM_RBRC, CM_BSLS, _______, _______, _______, _______, CM_DQUO, CM_HASH, CM_CIRC, CM_AMPR, CM_DLR , _______,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+      _______, _______, _______, CM_LBRC, CM_RBRC, CM_BSLS, _______, _______, _______, _______, CM_DQUO, CM_HASH, CM_CIRC, CM_AMPR, CM_DLR , CM_COLN,
+                                 _______, _______, CM_COLN, _______, _______, _______, _______, _______, _______, _______
     ),
 
 /*
@@ -296,9 +298,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * I3 Layer
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |Lck/Quit| 7    | 1    | 2    | 3    | 0    |                              | 9    | 4    | 5    | 6    | 8    |        |
+ * |Lock    | 8    | 1    | 2    | 3    | 0    |                              | 9    | 4    | Up   | 5    | 6    | Quit   |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |Parent|LAlt  |LShift|LCtrl |      |                              |Fullsc|Left  |Down  |Up    |Right |        |
+ * |        |Parent|LAlt  |LShift|LCtrl |      |                              |Fullsc|Left  |Down  |Right | 7    |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        |Child |      |      |      |      |      |      |  |      |      |NxtFre|Horizo|Vertic|Layout|Resize|        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
@@ -307,10 +309,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_I3] = LAYOUT(
-      CM_Q   , KC_7   , KC_1   , KC_2   , KC_3   , KC_0   ,                                     KC_9   , KC_4   , KC_5   , KC_6   , KC_8   , _______,
-      _______, CM_A   , KC_LALT, KC_LSFT, KC_LCTL, _______,                                     CM_F   , CM_H   , CM_J   , CM_K   , CM_L   , _______,
+      CM_Q   , KC_8   , KC_1   , KC_2   , KC_3   , KC_0   ,                                     KC_9   , KC_4   , CM_K   , KC_5   , KC_6   , S(CM_Q),
+      _______, CM_A   , KC_LALT, KC_LSFT, KC_LCTL, EMACS  ,                                     CM_F   , CM_H   , CM_J   , CM_L   , KC_7   , _______,
       _______, CM_Z   , _______, _______, _______, _______, _______, _______, _______, _______, CM_GRV , CM_G   , CM_V   , CM_T   , CM_R   , _______,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+                                 _______, _______, _______, _______, _______, _______, _______, KC_RSFT, _______, _______
     ),
 
 /*
@@ -344,8 +346,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * | AltGrp | Z    | X    | C    | D    | V    | ADJ  |      |  |      | CAPS | '    | K    | H    | ,    | .    | ;      |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | MUTE | Esc  | Spc  |      |      |  |      | _    | :    |      | TOGL |
- *                        | Vol+-| NAV  |      | NUM  |      |  | FKEY | SYM  | Rsft | I3   |Scrl+-|
+ *                        | MUTE | Esc  | Spc  |      |      |  |      |      | _    |      | TOGL |
+ *                        | Vol+-|      |      | NUM  |      |  | FKEY | NAV  | SYM  | I3   |Scrl+-|
  *                        `----------------------------------'  `----------------------------------'
  */
 
@@ -354,7 +356,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_BSPC , KC_Q ,  KC_W   ,  KC_F  ,   KC_P ,   KC_B ,                                        KC_J,  KC_L  ,  KC_U , KC_Y   ,KC_QUES, KC_BSPC,
      KC_TAB  ,CE_H_A,  CE_H_R ,  CE_H_S,  CE_H_T,   KC_G ,                                        KC_M,  CE_H_N, CE_H_E, CE_H_I ,CE_H_O,  KC_ENT,
      KC_RALT , KC_Z ,  KC_X   ,  KC_C  ,   KC_D ,   KC_V , ADJUST ,_______,     _______, KC_CAPS, KC_QUOT,KC_K ,  KC_H , KC_COMM,KC_DOT,  KC_SCLN,
-                                 KC_MUTE,ESC_NAV, KC_SPC , NUM    ,_______,     FKEYS  ,CE_SYM_UNDS, CE_RS_COLN,    I3 , TOGGLE
+                                 KC_MUTE, KC_ESC, KC_SPC , NUM    ,_______,     FKEYS  ,NAV, CE_SYM_UNDS,   I3 , TOGGLE
     ),
 /*
  * Base Layer: QWERTY native for gaming
@@ -379,7 +381,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // /*
 //  * Layer template
 //  *
-//  * ,-------------------------------------------.                              ,-------------------------------------------.
+//  * ,------------------------------------------.                              ,-------------------------------------------.
 //  * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
 //  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
 //  * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
@@ -406,18 +408,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             break;
-        case MT(MOD_RSFT, CM_COLN):
-            if (record->tap.count && record->event.pressed) {
-                tap_code16(CM_COLN);
-                return false;
-            }
-            break;
-        case MT(MOD_RSFT, KC_COLN):
-            if (record->tap.count && record->event.pressed) {
-                tap_code16(KC_COLN);
-                return false;
-            }
-            break;
+        // case MT(MOD_RSFT, CM_COLN):
+        //     if (record->tap.count && record->event.pressed) {
+        //         tap_code16(CM_COLN);
+        //         return false;
+        //     }
+        //     break;
+        // case MT(MOD_RSFT, KC_COLN):
+        //     if (record->tap.count && record->event.pressed) {
+        //         tap_code16(KC_COLN);
+        //         return false;
+        //     }
+        //     break;
     }
     return true;
 }
