@@ -215,20 +215,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Sym Layer: Symbols
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |      |      | <    | >    | |    |                              |      | %    | +    | *    | ?    |        |
+ * |        |      |      | <    | >    | |    |                              |      | +    | %    | ^    | ?    |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        | (    | )    | {    | }    | /    |                              | @    | -    | =    | ~    | `    |        |
+ * |        | (    | )    | {    | }    | /    |                              | @    | ~    | -    | =    | #    |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      | [    | ]    | \    |      |      |  |      |      | "    | #    | ^    | &    | $    | ;      |
+ * |        |      |      | [    | ]    | \    |      |      |  |      |      | "    | `    | *    | &    | $    | ;      |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_SYM] = LAYOUT(
-      _______, _______, _______, CM_LABK, CM_RABK, CM_PIPE,                                     _______, CM_PERC, CM_PLUS, CM_ASTR, CM_QUES, _______,
-      _______, CM_LPRN, CM_RPRN, CM_LCBR, CM_RCBR, CM_SLSH,                                     CM_AT  , CM_MINS, CM_EQL , CM_TILD, CM_GRV , _______,
-      _______, _______, _______, CM_LBRC, CM_RBRC, CM_BSLS, _______, _______, _______, _______, CM_DQUO, CM_HASH, CM_CIRC, CM_AMPR, CM_DLR , CM_SCLN,
+      _______, _______, _______, CM_LABK, CM_RABK, CM_PIPE,                                     _______, CM_PLUS, CM_PERC, CM_CIRC, CM_QUES, _______,
+      _______, CM_LPRN, CM_RPRN, CM_LCBR, CM_RCBR, CM_SLSH,                                     CM_AT  , CM_TILD, CM_MINS, CM_EQL , CM_HASH, _______,
+      _______, _______, _______, CM_LBRC, CM_RBRC, CM_BSLS, _______, _______, _______, _______, CM_DQUO, CM_GRV , CM_ASTR, CM_AMPR, CM_DLR , CM_SCLN,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
@@ -347,7 +347,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | AltGrp | Z    | X    | C    | D    | V    | ADJ  |      |  |      | CAPS | '    | K    | H    | ,    | .    | ;      |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        | MUTE | Esc  | Spc  |      |      |  |      |      | _    |      | TOGL |
- *                        | Vol+-|      |      | NUM  |      |  | FKEY | NAV  | SYM  | I3   |Scrl+-|
+ *                        | Vol+-| FKEY |      | NUM  |      |  |      | NAV  | SYM  | I3   |Scrl+-|
  *                        `----------------------------------'  `----------------------------------'
  */
 
@@ -356,7 +356,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_BSPC , KC_Q ,  KC_W   ,  KC_F  ,   KC_P ,   KC_B ,                                        KC_J,  KC_L  ,  KC_U , KC_Y   ,KC_QUES, KC_BSPC,
      KC_TAB  ,CE_H_A,  CE_H_R ,  CE_H_S,  CE_H_T,   KC_G ,                                        KC_M,  CE_H_N, CE_H_E, CE_H_I ,CE_H_O,  KC_ENT,
      KC_RALT , KC_Z ,  KC_X   ,  KC_C  ,   KC_D ,   KC_V , ADJUST ,_______,     _______, KC_CAPS, KC_QUOT,KC_K ,  KC_H , KC_COMM,KC_DOT,  KC_SCLN,
-                                 KC_MUTE, KC_ESC, KC_SPC , NUM    ,_______,     FKEYS  ,NAV, CE_SYM_UNDS,   I3 , TOGGLE
+                                 KC_MUTE, ESC_FN, KC_SPC , NUM    ,_______,     FKEYS  ,NAV, CE_SYM_UNDS,   I3 , TOGGLE
     ),
 /*
  * Base Layer: QWERTY native for gaming
@@ -369,7 +369,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | LCtrl  | Z    | X    | C    | V    | B    | ADJ  |      |  |      | CAPS | '    | N    | M    | ,    | .    | RAlt   |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        | MUTE | Esc  | Spc  |      |      |  |      | _    | :    |      | TOGL |
- *                        | Vol+-| NAV  |      | NUM  |      |  | FKEY | SYM  | Rsft | I3   |Scrl+-|
+ *                        | Vol+-| FKEY |      | NUM  |      |  |      | SYM  | Rsft | I3   |Scrl+-|
  *                        `----------------------------------'  `----------------------------------'
  */
     [_QWERTY] = LAYOUT(
