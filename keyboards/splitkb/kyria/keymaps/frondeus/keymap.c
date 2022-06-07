@@ -27,6 +27,7 @@ enum layers {
     _FUNCTION, // F1-F12
     _I3, // I3wm layer
     _ADJUST, // Change RGB, change layout
+    _MOUSE,
     _TOGGLE // Makes some layers toggable so you can write without held thumb
 };
 
@@ -50,6 +51,7 @@ enum layers {
 #define ADJUST   MO(_ADJUST)
 #define _RESET   TO(_COLEMAK_DH)
 #define TOGGLE   TG(_TOGGLE)
+#define MOUSE    TG(_MOUSE)
 
 #define ESC_FN   LT(_FUNCTION,KC_ESC)
 #define RS_COLN  MT(MOD_RSFT, CM_COLN)
@@ -190,18 +192,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * | Tab    | A    | R    | S    | T    | G    |                              | M    | N    | E    | I    | O    | Ent    |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | AltGrp | Z    | X    | C    | D    | V    | ADJ  |      |  |      | CAPS | '    | K    | H    | ,    | .    | :      |
+ * | AltGrp | Z    | X    | C    | D    | V    | CAPS | ADJ  |  |      |MOUSE | '    | K    | H    | ,    | .    | :      |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        | MUTE | Esc  | Spc  |      |      |  |      |      | _    |      | TOGL |
  *                        | Vol+-| FKEY |      | NUM  |      |  |      | NAV  | SYM  | I3   |Scrl+-|
  *                        `----------------------------------'  `----------------------------------'
  */
 
-
     [_COLEMAK_DH] = LAYOUT(
      KC_DEL  , CM_Q ,  CM_W   ,  CM_F  ,   CM_P ,   CM_B ,                                        CM_J,  CM_L  ,  CM_U , CM_Y   ,CM_EXLM, KC_BSPC,
      KC_TAB  ,HOME_A,  HOME_R ,  HOME_S,  HOME_T,   CM_G ,                                        CM_M,  HOME_N, HOME_E, HOME_I ,HOME_O,  KC_ENT,
-     KC_RALT , CM_Z ,  CM_X   ,  CM_C  ,   CM_D ,   CM_V , ADJUST ,_______,     _______, KC_CAPS, CM_QUOT,CM_K ,  CM_H , CM_COMM,CM_DOT,  CM_COLN,
+     KC_RALT , CM_Z ,  CM_X   ,  CM_C  ,   CM_D ,   CM_V , KC_CAPS,ADJUST ,     _______, MOUSE  , CM_QUOT,CM_K ,  CM_H , CM_COMM,CM_DOT,  CM_COLN,
                                  KC_MUTE,ESC_FN , KC_SPC , NUM    ,_______,     _______, NAV , SYM_UNDS,    I3 , TOGGLE
     ),
 
@@ -217,7 +218,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |        |      |      | <    | >    | |    |                              |      | +    | %    | ^    | ?    |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        | (    | )    | {    | }    | /    |                              | @    | ~    | -    | =    | #    |        |
+ * |        | (    | )    | {    | }    | /    |                              | ~    | -    | =    | @    | #    |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        |      |      | [    | ]    | \    |      |      |  |      |      | "    | `    | *    | &    | $    | ;      |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
@@ -227,9 +228,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     [_SYM] = LAYOUT(
       _______, _______, _______, CM_LABK, CM_RABK, CM_PIPE,                                     _______, CM_PLUS, CM_PERC, CM_CIRC, CM_QUES, _______,
-      _______, CM_LPRN, CM_RPRN, CM_LCBR, CM_RCBR, CM_SLSH,                                     CM_AT  , CM_TILD, CM_MINS, CM_EQL , CM_HASH, _______,
+      _______, CM_LPRN, CM_RPRN, CM_LCBR, CM_RCBR, CM_SLSH,                                     CM_TILD, CM_MINS, CM_EQL , CM_AT,   CM_HASH, _______,
       _______, _______, _______, CM_LBRC, CM_RBRC, CM_BSLS, _______, _______, _______, _______, CM_DQUO, CM_GRV , CM_ASTR, CM_AMPR, CM_DLR , CM_SCLN,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
+
+/*
+ * Mouse Layer
+ *
+ * ,------------------------------------------.                              ,-------------------------------------------.
+ * |        |      |      |      |      |      |                              |      |      |  M↑  |      |      |        |
+ * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |                              |      |  M←  |  M↓  |  M→  |      |        |
+ * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |      |  |      | MOUSE|      |      |      |      |      |        |
+ * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+ *                        |      |      |      |      |      |  |      | Left | Right|Middle|Scroll|
+ *                        |      |      |      |      |      |  |      | Click| Click| Click|      |
+ *                        `----------------------------------'  `----------------------------------'
+ */
+    [_MOUSE] = LAYOUT(
+      _______, _______, _______, _______, _______, _______,                                     _______, _______, KC_MS_U, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______,                                     _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, MOUSE  , _______, _______, _______, _______, _______, _______,
+                                 _______, _______, _______, _______, _______, _______, KC_BTN1, KC_BTN2, KC_BTN3, _______
     ),
 
 /*
@@ -378,6 +400,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_LCTL, KC_Z ,  KC_X   ,  KC_C  ,   KC_V ,   KC_B , ADJUST ,_______,     _______, KC_CAPS, KC_QUOT,KC_N ,  KC_M , KC_COMM,KC_DOT,  KC_RALT,
                                 KC_MUTE,ESC_FN , KC_SPC , NUM    ,_______,     FKEYS  ,CE_SYM_UNDS, CE_RS_COLN,    I3 , TOGGLE
     ),
+
 // /*
 //  * Layer template
 //  *
