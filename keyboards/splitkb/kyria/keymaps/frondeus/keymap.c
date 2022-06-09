@@ -25,9 +25,9 @@ enum layers {
     _SYM, // Symbols
     _NAV, // Navigation, arrows
     _FUNCTION, // F1-F12
+    _MOUSE,
     _I3, // I3wm layer
     _ADJUST, // Change RGB, change layout
-    _MOUSE,
     _TOGGLE // Makes some layers toggable so you can write without held thumb
 };
 
@@ -194,8 +194,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * | AltGrp | Z    | X    | C    | D    | V    | CAPS | ADJ  |  |      |MOUSE | '    | K    | H    | ,    | .    | :      |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | MUTE | Esc  | Spc  |      |      |  |      |      | _    |      | TOGL |
- *                        | Vol+-| FKEY |      | NUM  |      |  |      | NAV  | SYM  | I3   |Scrl+-|
+ *                        |      | Esc  | Spc  |      |      |  |      |      | _    |      | TOGL |
+ *                        | Tab+-| FKEY |      | NUM  |      |  |      | NAV  | SYM  | I3   |Scrl+-|
  *                        `----------------------------------'  `----------------------------------'
  */
 
@@ -203,7 +203,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_DEL  , CM_Q ,  CM_W   ,  CM_F  ,   CM_P ,   CM_B ,                                        CM_J,  CM_L  ,  CM_U , CM_Y   ,CM_EXLM, KC_BSPC,
      KC_TAB  ,HOME_A,  HOME_R ,  HOME_S,  HOME_T,   CM_G ,                                        CM_M,  HOME_N, HOME_E, HOME_I ,HOME_O,  KC_ENT,
      KC_RALT , CM_Z ,  CM_X   ,  CM_C  ,   CM_D ,   CM_V , KC_CAPS,ADJUST ,     _______, MOUSE  , CM_QUOT,CM_K ,  CM_H , CM_COMM,CM_DOT,  CM_COLN,
-                                 KC_MUTE,ESC_FN , KC_SPC , NUM    ,_______,     _______, NAV , SYM_UNDS,    I3 , TOGGLE
+                                 _______,ESC_FN , KC_SPC , NUM    ,_______,     _______, NAV , SYM_UNDS,    I3 , TOGGLE
     ),
 
     [_TOGGLE] = LAYOUT(
@@ -243,15 +243,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |      |  |      | MOUSE|      |      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      | Left | Right|Middle|Scroll|
- *                        |      |      |      |      |      |  |      | Click| Click| Click|      |
+ *                        |      |      |      |      |      |  |Middle| Left | Right|      |Scroll|
+ *                        |      |      |      |      |      |  | Click| Click| Click|      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_MOUSE] = LAYOUT(
       _______, _______, _______, _______, _______, _______,                                     _______, _______, KC_MS_U, _______, _______, _______,
       _______, _______, _______, _______, _______, _______,                                     _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, MOUSE  , _______, _______, _______, _______, _______, _______,
-                                 _______, _______, _______, _______, _______, _______, KC_BTN1, KC_BTN2, KC_BTN3, _______
+                                 _______, _______, _______, _______, _______, KC_BTN3, KC_BTN1, KC_BTN2, _______, _______
     ),
 
 /*
@@ -264,15 +264,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |PAUSE |      |      |      |      |  |      |      |      |      |      |
- *                        |Song+-|      |      |      |      |  |      |      |      |      |Tab+- |
+ *                        |PAUSE |      |      |      |      |  |      |      |      |      | MUTE |
+ *                        |Song+-|      |      |      |      |  |      |      |      |      |Vol+- |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_NAV] = LAYOUT(
       _______, _______, _______, _______, _______, _______,                                     KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_INS , _______,
       _______, KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, _______,                                     KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                                 KC_MPLY, _______, _______, _______, _______, _______, _______, _______, _______, _______
+                                 KC_MPLY, _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE
     ),
 
 /*
@@ -460,12 +460,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 }
             } else
             if (index == 1) {
-                // Tabs in browser
+                // Volume control
                 if (clockwise) {
-                    tap_code16(C(KC_TAB));
-                }
-                else {
-                    tap_code16(S(C(KC_TAB)));
+                    tap_code(KC_VOLU);
+                } else {
+                    tap_code(KC_VOLD);
                 }
             }
             break;
@@ -488,11 +487,12 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             }
         default:
             if (index == 0) {
-                // Volume control
+                // Tabs in browser
                 if (clockwise) {
-                    tap_code(KC_VOLU);
-                } else {
-                    tap_code(KC_VOLD);
+                    tap_code16(C(KC_TAB));
+                }
+                else {
+                    tap_code16(S(C(KC_TAB)));
                 }
             } else if (index == 1) {
                 // Page up/Page down
