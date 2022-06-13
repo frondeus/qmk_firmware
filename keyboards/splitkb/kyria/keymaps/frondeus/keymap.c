@@ -51,7 +51,9 @@ enum layers {
 #define ADJUST   MO(_ADJUST)
 #define _RESET   TO(_COLEMAK_DH)
 #define TOGGLE   TG(_TOGGLE)
-#define MOUSE    TG(_MOUSE)
+#define MOUSE    MO(_MOUSE)
+// #define MS_1     LM(_MOUSE, KC_BTN1)
+// #define MS_2     LM(_MOUSE, KC_BTN2)
 
 #define ESC_FN   LT(_FUNCTION,KC_ESC)
 #define RS_COLN  MT(MOD_RSFT, CM_COLN)
@@ -77,6 +79,11 @@ enum layers {
 #define CE_H_O   MT(MOD_RGUI, KC_O)
 
 #define EMACS    RSG(KC_QUOT)
+
+enum custom_keycodes {
+    MS_2 = SAFE_RANGE,
+    MS_3
+};
 
 enum combos {
     AE_DK_ASH,   // Æ
@@ -202,8 +209,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_COLEMAK_DH] = LAYOUT(
      KC_DEL  , CM_Q ,  CM_W   ,  CM_F  ,   CM_P ,   CM_B ,                                        CM_J,  CM_L  ,  CM_U , CM_Y   ,CM_EXLM, KC_BSPC,
      KC_TAB  ,HOME_A,  HOME_R ,  HOME_S,  HOME_T,   CM_G ,                                        CM_M,  HOME_N, HOME_E, HOME_I ,HOME_O,  KC_ENT,
-     KC_RALT , CM_Z ,  CM_X   ,  CM_C  ,   CM_D ,   CM_V , KC_CAPS,ADJUST ,     _______, MOUSE  , CM_QUOT,CM_K ,  CM_H , CM_COMM,CM_DOT,  CM_COLN,
-                                 _______,ESC_FN , KC_SPC , NUM    ,_______,     _______, NAV , SYM_UNDS,    I3 , TOGGLE
+     KC_RALT , CM_Z ,  CM_X   ,  CM_C  ,   CM_D ,   CM_V , KC_CAPS,ADJUST ,     MS_3   , MOUSE, CM_QUOT,CM_K ,  CM_H , CM_COMM,CM_DOT,  CM_COLN,
+                                 _______,ESC_FN , KC_SPC , NUM    ,_______,     MS_2   , NAV , SYM_UNDS,    I3 , TOGGLE
     ),
 
     [_TOGGLE] = LAYOUT(
@@ -241,17 +248,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |                              |      |  M←  |  M↓  |  M→  |      |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |      |  |      | MOUSE|      |      |      |      |      |        |
+ * |        |      |      |      |      |      |      |      |  |Middle|      |      |      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |Middle| Left | Right|      |Scroll|
- *                        |      |      |      |      |      |  | Click| Click| Click|      |      |
+ *                        |      |      |      |      |      |  |      |      |      |      |Scroll|
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_MOUSE] = LAYOUT(
       _______, _______, _______, _______, _______, _______,                                     _______, _______, KC_MS_U, _______, _______, _______,
       _______, _______, _______, _______, _______, _______,                                     _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______,
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, MOUSE  , _______, _______, _______, _______, _______, _______,
-                                 _______, _______, _______, _______, _______, KC_BTN3, KC_BTN1, KC_BTN2, _______, _______
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                                 _______, _______, _______, _______, _______, _______, KC_BTN1, _______, _______, _______
     ),
 
 /*
@@ -443,6 +450,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         //         return false;
         //     }
         //     break;
+        case MS_3:
+            if(record->event.pressed) {
+                  layer_on(_MOUSE);
+                  register_code(KC_BTN3);
+            }
+            else {
+                  unregister_code16(KC_BTN3);
+                  layer_off(_MOUSE);
+            }
+            break;
+        case MS_2:
+            if(record->event.pressed) {
+                  layer_on(_MOUSE);
+                  register_code(KC_BTN2);
+            }
+            else {
+                  unregister_code16(KC_BTN2);
+                  layer_off(_MOUSE);
+            }
+            break;
     }
     return true;
 }
