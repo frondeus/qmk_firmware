@@ -52,12 +52,13 @@ enum layers {
 #define _RESET   TO(_COLEMAK_DH)
 #define TOGGLE   TG(_TOGGLE)
 #define MOUSE    MO(_MOUSE)
-// #define MS_1     LM(_MOUSE, KC_BTN1)
+#define MS_1     LT(_MOUSE, KC_NO)
 // #define MS_2     LM(_MOUSE, KC_BTN2)
 
 #define ESC_FN   LT(_FUNCTION,KC_ESC)
 #define RS_COLN  MT(MOD_RSFT, CM_COLN)
 #define SYM_UNDS LT(_SYM,     CM_UNDS)
+#define NUM_COL  LT(_NUM,     CM_COLN)
 #define HOME_A   MT(MOD_LGUI, CM_A)
 #define HOME_R   MT(MOD_LALT, CM_R)
 #define HOME_S   MT(MOD_LSFT, CM_S)
@@ -81,6 +82,7 @@ enum layers {
 #define EMACS    RSG(KC_QUOT)
 
 enum custom_keycodes {
+    // MS_1 = SAFE_RANGE,
     MS_2 = SAFE_RANGE,
     MS_3
 };
@@ -195,48 +197,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Base Layer: Colemak
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * | Delete | Q    |  W   |  F   | P    | B    |                              | J    | L    | U    | Y    | !    | Bksp   |
+ * | Delete | (    |  W   |  F   | P    | B    |                              | J    | L    | U    | Y    | )    | Bksp   |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * | Tab    | A    | R    | S    | T    | G    |                              | M    | N    | E    | I    | O    | Ent    |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | AltGrp | Z    | X    | C    | D    | V    | CAPS | ADJ  |  |      |MOUSE | '    | K    | H    | ,    | .    | :      |
+ * | AltGrp | Z    | X    | C    | D    | V    | CAPS | ADJ  |  |Middle|MOUSE | '    | K    | H    | ,    | .    | Q      |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      | Esc  | Spc  |      |      |  |      |      | _    |      | TOGL |
- *                        | Tab+-| FKEY |      | NUM  |      |  |      | NAV  | SYM  | I3   |Scrl+-|
+ *                        |      | Esc  | Spc  | :    |      |  |Right | _    | _    |      | TOGL |
+ *                        | Tab+-| FKEY |      | NUM  |      |  |      | SYM  | NAV  | I3   |Scrl+-|
  *                        `----------------------------------'  `----------------------------------'
  */
 
     [_COLEMAK_DH] = LAYOUT(
-     KC_DEL  , CM_Q ,  CM_W   ,  CM_F  ,   CM_P ,   CM_B ,                                        CM_J,  CM_L  ,  CM_U , CM_Y   ,CM_EXLM, KC_BSPC,
+     KC_DEL  ,CM_LPRN, CM_W   ,  CM_F  ,   CM_P ,   CM_B ,                                        CM_J,  CM_L  ,  CM_U , CM_Y   ,CM_RPRN, KC_BSPC,
      KC_TAB  ,HOME_A,  HOME_R ,  HOME_S,  HOME_T,   CM_G ,                                        CM_M,  HOME_N, HOME_E, HOME_I ,HOME_O,  KC_ENT,
-     KC_RALT , CM_Z ,  CM_X   ,  CM_C  ,   CM_D ,   CM_V , KC_CAPS,ADJUST ,     MS_3   , MOUSE, CM_QUOT,CM_K ,  CM_H , CM_COMM,CM_DOT,  CM_COLN,
-                                 _______,ESC_FN , KC_SPC , NUM    ,_______,     MS_2   , NAV , SYM_UNDS,    I3 , TOGGLE
+     KC_RALT , CM_Z ,  CM_X   ,  CM_C  ,   CM_D ,   CM_V , KC_CAPS,ADJUST ,     MS_2   , MS_1   , CM_QUOT,CM_K ,  CM_H , CM_COMM,CM_DOT,  CM_Q   ,
+                                 _______,ESC_FN , KC_SPC , NUM_COL,_______,     MS_3   , SYM_UNDS, NAV,    I3 , TOGGLE
     ),
 
     [_TOGGLE] = LAYOUT(
       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                                 _______, T_FKEYS, _______, T_NUM  , _______, _______, T_NAV  , T_SYM  ,    T_I3, _RESET
+                                 _______, T_FKEYS, _______, T_NUM  , _______, _______, T_SYM  , T_NAV  ,    T_I3, _RESET
     ),
 /*
  * Sym Layer: Symbols
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |      |      | <    | >    | \    |                              | %    | +    | |    | ^    | ?    |        |
+ * |        | (    | {    | [    | <    |      |                              | %    | >    | ]    | }    | )    |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        | (    | )    | {    | }    | ~    |                              | /    | -    | =    | @    | #    |        |
+ * |        | ~    | #    | |    | /    | !    |                              | ;    | &    | =    | ?    | *    |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      | [    | ]    | `    |      |      |  |      |      | "    | ;    | *    | &    | $    |        |
+ * |        | @    | +    | ^    | \    | `    |      |      |  |      |      | "    | $    | -    | ,    | .    |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_SYM] = LAYOUT(
-      _______, _______, _______, CM_LABK, CM_RABK, CM_BSLS,                                     CM_PERC, CM_PLUS, CM_PIPE, CM_CIRC, CM_QUES, _______,
-      _______, CM_LPRN, CM_RPRN, CM_LCBR, CM_RCBR, CM_TILD,                                     CM_SLSH, CM_MINS, CM_EQL , CM_AT,   CM_HASH, _______,
-      _______, _______, _______, CM_LBRC, CM_RBRC, CM_GRV , _______, _______, _______, _______, CM_DQUO, CM_SCLN, CM_ASTR, CM_AMPR, CM_DLR , CM_SCLN,
+      _______, _______, CM_LCBR, CM_LBRC, CM_LABK, _______,                                     CM_PERC, CM_RABK, CM_RBRC, CM_RCBR, _______, _______,
+      _______, CM_TILD, CM_HASH, CM_PIPE, CM_SLSH, CM_EXLM,                                     CM_SCLN, CM_AMPR, CM_EQL , CM_QUES, CM_ASTR, _______,
+      _______, CM_AT  , CM_PLUS, CM_CIRC, CM_BSLS, CM_GRV , _______, _______, _______, _______, CM_DQUO, CM_DLR , CM_MINS, _______, _______, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
@@ -248,9 +250,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |                              |      |  M←  |  M↓  |  M→  |      |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |      |  |Middle|      |      |      |      |      |      |        |
+ * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      |      |      |      |Scroll|
+ *                        |      |      |      |      |      |  |      |Left  |      |      |Scroll|
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
@@ -271,15 +273,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |PAUSE |      |      |      |      |  |      |      |      |      | MUTE |
- *                        |Song+-|      |      |      |      |  |      |      |      |      |Vol+- |
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_NAV] = LAYOUT(
       _______, _______, _______, _______, _______, _______,                                     KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_INS , _______,
       _______, KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, _______,                                     KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                                 KC_MPLY, _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE
+                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
 /*
@@ -312,15 +314,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        |  F11 |  F7  |  F8  |  F9  |      |      |      |  |      |      |      |      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        |PAUSE |      |      |      |      |  |      |      |      |      | MUTE |
+ *                        |Song+-|      |      |      |      |  |      |      |      |      |Vol+- |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_FUNCTION] = LAYOUT(
       KC_PSCR,  KC_F12,  KC_F1 ,  KC_F2 ,  KC_F3 , _______,                                     _______, _______, _______, _______, _______, _______,
       _______,  KC_F10,  KC_F4 ,  KC_F5 ,  KC_F6 , _______,                                     _______, KC_RCTL, KC_RSFT, KC_LALT, KC_RGUI, _______,
       _______,  KC_F11,  KC_F7 ,  KC_F8 ,  KC_F9 , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+                                 KC_MPLY, _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE
     ),
 
 /*
@@ -438,6 +440,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             break;
+        case LT(_NUM, CM_COLN):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(CM_COLN);
+                return false;
+            }
+            break;
         // case MT(MOD_RSFT, CM_COLN):
         //     if (record->tap.count && record->event.pressed) {
         //         tap_code16(CM_COLN);
@@ -450,14 +458,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         //         return false;
         //     }
         //     break;
-        case MS_3:
-            if(record->event.pressed) {
-                  layer_on(_MOUSE);
-                  register_code(KC_BTN3);
-            }
-            else {
-                  unregister_code16(KC_BTN3);
-                  layer_off(_MOUSE);
+        case LT(_MOUSE, KC_NO):
+            if(record->tap.count && record->event.pressed) {
+                  tap_code(KC_BTN1);
+                return false;
             }
             break;
         case MS_2:
@@ -470,6 +474,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   layer_off(_MOUSE);
             }
             break;
+        case MS_3:
+            if(record->event.pressed) {
+                  layer_on(_MOUSE);
+                  register_code(KC_BTN3);
+            }
+            else {
+                  unregister_code16(KC_BTN3);
+                  layer_off(_MOUSE);
+            }
+            break;
     }
     return true;
 }
@@ -477,7 +491,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
     switch (get_highest_layer((layer_state&(~(1<<_TOGGLE)))|default_layer_state)) {
-        case _NAV:
+        case _FUNCTION:
             if (index == 0) {
                 // Songs
                 if (clockwise) {
@@ -492,6 +506,16 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                     tap_code(KC_VOLU);
                 } else {
                     tap_code(KC_VOLD);
+                }
+            }
+            break;
+        case _NAV:
+            if (index == 0) {
+                // History
+                if (clockwise) {
+                    tap_code16(A(KC_RIGHT));
+                } else {
+                    tap_code16(A(KC_LEFT));
                 }
             }
             break;
