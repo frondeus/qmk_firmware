@@ -110,18 +110,10 @@ enum combos {
     OSL_DK_ODIA, // Ø
 
     YU_YOU,
-    YUR_YOUR,
-    YURA_YOUARE,
-    IM_IAM,
-    IV_IVE,
-    ID_ID,
-    IL_ILL,
-    WHS_WHOS,
-    ITS_ITS,
     NT_NT,
-    THD_THEYD,
-    THV_THEYVE,
-
+    LP_LL,
+    VE_VE,
+    YPAR_QU,
     COMBO_LENGTH
 };
 
@@ -145,17 +137,10 @@ const uint16_t PROGMEM dk_acir_combo[] = {HOME_A, CM_DOT,  COMBO_END};
 const uint16_t PROGMEM pl_lstr_combo[] = {CM_L,   HOME_S,  COMBO_END};
 const uint16_t PROGMEM dk_odia_combo[] = {HOME_O, HOME_S,  COMBO_END};
 const uint16_t PROGMEM you_combo[]     = {CM_U,   CM_Y,    COMBO_END};
-const uint16_t PROGMEM your_combo[]    = {CM_U,   CM_Y, HOME_R, COMBO_END};
-const uint16_t PROGMEM youare_combo[]  = {CM_U, CM_Y, HOME_R, HOME_A, COMBO_END};
-const uint16_t PROGMEM iam_combo[]     = {HOME_I, CM_M, COMBO_END};
-const uint16_t PROGMEM ive_combo[]     = {HOME_I, CM_V, COMBO_END};
-const uint16_t PROGMEM id_combo[]      = {HOME_I, CM_D, COMBO_END};
-const uint16_t PROGMEM ill_combo[]     = {HOME_I, CM_L, COMBO_END};
-const uint16_t PROGMEM whos_combo[]    = {CM_W, CM_H, HOME_S, COMBO_END};
-const uint16_t PROGMEM its_combo[]     = {HOME_I, HOME_T, HOME_S, COMBO_END};
 const uint16_t PROGMEM nt_combo[]      = {HOME_N, HOME_T, COMBO_END};
-const uint16_t PROGMEM theyd_combo[]   = {HOME_T, CM_H, CM_D, COMBO_END};
-const uint16_t PROGMEM theyve_combo[]  = {HOME_T, CM_H, CM_V, COMBO_END};
+const uint16_t PROGMEM ll_combo[]      = {CM_L, CM_P, COMBO_END};
+const uint16_t PROGMEM ve_combo[]      = {CM_V, HOME_E, COMBO_END};
+const uint16_t PROGMEM qe_combo[]      = {CM_Y, CM_RPRN, COMBO_END};
 
 combo_t key_combos[] = {
     [AE_DK_ASH] = COMBO_ACTION(dk_ash_combo),
@@ -178,17 +163,10 @@ combo_t key_combos[] = {
     [LSL_PL_LSTR] = COMBO_ACTION(pl_lstr_combo), // Ł
     [OSL_DK_ODIA] = COMBO_ACTION(dk_odia_combo), // Ø
     [YU_YOU] = COMBO_ACTION(you_combo),
-    [YUR_YOUR] = COMBO_ACTION(your_combo),
-    [YURA_YOUARE] = COMBO_ACTION(youare_combo),
-    [IM_IAM] = COMBO_ACTION(iam_combo),
-    [IV_IVE] = COMBO_ACTION(ive_combo),
-    [ID_ID] = COMBO_ACTION(id_combo),
-    [IL_ILL] = COMBO_ACTION(ill_combo),
-    [WHS_WHOS] = COMBO_ACTION(whos_combo),
-    [ITS_ITS] = COMBO_ACTION(its_combo),
     [NT_NT] = COMBO_ACTION(nt_combo),
-    [THD_THEYD] = COMBO_ACTION(theyd_combo),
-    [THV_THEYVE] = COMBO_ACTION(theyve_combo),
+    [LP_LL] = COMBO_ACTION(ll_combo),
+    [VE_VE] = COMBO_ACTION(ve_combo),
+    [YPAR_QU] = COMBO_ACTION(qe_combo),
 };
 
 // clang-format off
@@ -203,8 +181,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * | AltGrp | Z    | X    | C    | D    | V    | CAPS | ADJ  |  |Middle|MOUSE | '    | K    | H    | ,    | .    | Q      |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      | Esc  | Spc  | :    |      |  |Right | _    | _    |      | TOGL |
- *                        | Tab+-| FKEY |      | NUM  |      |  |      | SYM  | NAV  | I3   |Scrl+-|
+ *                        |      | Esc  | Spc  | :    |      |  |Right |      | _    |      | TOGL |
+ *                        | Tab+-| FKEY |      | NUM  |      |  |      | NAV  | SYM  | I3   |Scrl+-|
  *                        `----------------------------------'  `----------------------------------'
  */
 
@@ -212,14 +190,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_DEL  ,CM_LPRN, CM_W   ,  CM_F  ,   CM_P ,   CM_B ,                                        CM_J,  CM_L  ,  CM_U , CM_Y   ,CM_RPRN, KC_BSPC,
      KC_TAB  ,HOME_A,  HOME_R ,  HOME_S,  HOME_T,   CM_G ,                                        CM_M,  HOME_N, HOME_E, HOME_I ,HOME_O,  KC_ENT,
      KC_RALT , CM_Z ,  CM_X   ,  CM_C  ,   CM_D ,   CM_V , KC_CAPS,ADJUST ,     MS_2   , MS_1   , CM_QUOT,CM_K ,  CM_H , CM_COMM,CM_DOT,  CM_Q   ,
-                                 _______,ESC_FN , KC_SPC , NUM_COL,_______,     MS_3   , SYM_UNDS, NAV,    I3 , TOGGLE
+                                 _______,ESC_FN , KC_SPC , NUM_COL,_______,     MS_3   , NAV,   SYM_UNDS,    I3 , TOGGLE
     ),
 
     [_TOGGLE] = LAYOUT(
       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                                 _______, T_FKEYS, _______, T_NUM  , _______, _______, T_SYM  , T_NAV  ,    T_I3, _RESET
+                                 _______, T_FKEYS, _______, T_NUM  , _______, _______, T_NAV  , T_SYM  ,    T_I3, _RESET
     ),
 /*
  * Sym Layer: Symbols
@@ -611,38 +589,17 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             case YU_YOU:
                 send_string("you");
                 break;
-            case YUR_YOUR:
-                send_string("your");
-                break;
-            case YURA_YOUARE:
-                send_string("you're");
-                break;
-            case IM_IAM:
-                send_string("I'm");
-                break;
-            case IV_IVE:
-                send_string("I've");
-                break;
-            case ID_ID:
-                send_string("I'd");
-                break;
-            case IL_ILL:
-                send_string("I'll");
-                break;
-            case WHS_WHOS:
-                send_string("who's");
-                break;
-            case ITS_ITS:
-                send_string("it's");
-                break;
             case NT_NT:
                 send_string("n't");
                 break;
-            case THD_THEYD:
-                send_string("they'd");
+            case LP_LL:
+                send_string("'ll");
                 break;
-            case THV_THEYVE:
-                send_string("they've");
+            case VE_VE:
+                send_string("'ve");
+                break;
+            case YPAR_QU:
+                send_string("qu");
                 break;
         }
     }
