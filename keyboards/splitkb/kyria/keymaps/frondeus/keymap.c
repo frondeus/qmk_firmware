@@ -20,12 +20,13 @@
 enum layers {
     _COLEMAK_DH = 0, // Default layer - requires Colemak (Not DH tho!) installed and active in OS
     _COLEMAK_EMU, // Colemak emulated, for OS with classic QWERTY layout. Handy in BIOS and stuff. Does not support polish/danish characters
-    _QWERTY,
+    // _QWERTY,
     _NUM, // Numbers
     _SYM, // Symbols
     _NAV, // Navigation, arrows
     _FUNCTION, // F1-F12
-    _MOUSE,
+    _EMO,
+    // _MOUSE,
     _I3, // I3wm layer
     _ADJUST, // Change RGB, change layout
     _TOGGLE // Makes some layers toggable so you can write without held thumb
@@ -34,7 +35,7 @@ enum layers {
 
 #define COLEMAK   DF(_COLEMAK_DH)
 #define COLEMU   DF(_COLEMAK_EMU)
-#define QWERTY   DF(_QWERTY)
+// #define QWERTY   DF(_QWERTY)
 /* #define QWERDH   DF(_QWERTY_DH) */
 //#define COLEMAK  DF(_COLEMAK_DH)
 
@@ -51,8 +52,8 @@ enum layers {
 #define ADJUST   MO(_ADJUST)
 #define _RESET   TO(_COLEMAK_DH)
 #define TOGGLE   TG(_TOGGLE)
-#define MOUSE    MO(_MOUSE)
-#define MS_1     LT(_MOUSE, KC_NO)
+// #define MOUSE    MO(_MOUSE)
+// #define MS_1     LT(_MOUSE, KC_NO)
 // #define MS_2     LM(_MOUSE, KC_BTN2)
 
 #define ESC_FN   LT(_FUNCTION,KC_ESC)
@@ -175,11 +176,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Base Layer: Colemak
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * | Delete | (    |  W   |  F   | P    | B    |                              | J    | L    | U    | Y    | )    | Bksp   |
+ * | Delete | Q    |  W   |  F   | P    | B    |                              | J    | L    | U    | Y    | @    | Bksp   |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * | Tab    | A    | R    | S    | T    | G    |                              | M    | N    | E    | I    | O    | Ent    |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | AltGrp | Z    | X    | C    | D    | V    | CAPS | ADJ  |  |Middle|MOUSE | '    | K    | H    | ,    | .    | Q      |
+ * | AltGrp | Z    | X    | C    | D    | V    | CAPS | ADJ  |  |Middle|MOUSE | '    | K    | H    | ,    | .    |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      | Esc  | Spc  | :    |      |  |Right |      | _    |      | TOGL |
  *                        | Tab+-| FKEY |      | NUM  |      |  |      | NAV  | SYM  | I3   |Scrl+-|
@@ -187,10 +188,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
     [_COLEMAK_DH] = LAYOUT(
-     KC_DEL  ,CM_LPRN, CM_W   ,  CM_F  ,   CM_P ,   CM_B ,                                        CM_J,  CM_L  ,  CM_U , CM_Y   ,CM_RPRN, KC_BSPC,
+     KC_DEL  , CM_Q ,  CM_W   ,  CM_F  ,   CM_P ,   CM_B ,                                        CM_J,  CM_L  ,  CM_U , CM_Y   , CM_AT,  KC_BSPC,
      KC_TAB  ,HOME_A,  HOME_R ,  HOME_S,  HOME_T,   CM_G ,                                        CM_M,  HOME_N, HOME_E, HOME_I ,HOME_O,  KC_ENT,
-     KC_RALT , CM_Z ,  CM_X   ,  CM_C  ,   CM_D ,   CM_V , KC_CAPS,ADJUST ,     MS_2   , MS_1   , CM_QUOT,CM_K ,  CM_H , CM_COMM,CM_DOT,  CM_Q   ,
-                                 _______,ESC_FN , KC_SPC , NUM_COL,_______,     MS_3   , NAV,   SYM_UNDS,    I3 , TOGGLE
+     KC_RALT , CM_Z ,  CM_X   ,  CM_C  ,   CM_D ,   CM_V , KC_CAPS,ADJUST ,     _______, _______, CM_QUOT,CM_K ,  CM_H , CM_COMM,CM_DOT,  _______,
+                                 _______,ESC_FN , KC_SPC , NUM_COL,_______,     _______, NAV,   SYM_UNDS,    I3 , TOGGLE
     ),
 
     [_TOGGLE] = LAYOUT(
@@ -203,20 +204,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Sym Layer: Symbols
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        | (    | {    | [    | <    |      |                              | %    | >    | ]    | }    | )    |        |
+ * |        |      | ?    | -    | |    |      |                              |      | ]    | #    | >    |      |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        | ~    | #    | |    | /    | !    |                              | ;    | &    | =    | ?    | *    |        |
+ * |        | *    | ;    | {    | (    | +    |                              | %    | =    | )    | /    | }    |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        | @    | +    | ^    | \    | `    |      |      |  |      |      | "    | $    | -    | ,    | .    |        |
+ * |        | ^    | \    | <    | [    | `    |      |      |  |      |      | "    | ~    | &    | !    | $    |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_SYM] = LAYOUT(
-      _______, _______, CM_LCBR, CM_LBRC, CM_LABK, _______,                                     CM_PERC, CM_RABK, CM_RBRC, CM_RCBR, _______, _______,
-      _______, CM_TILD, CM_HASH, CM_PIPE, CM_SLSH, CM_EXLM,                                     CM_SCLN, CM_AMPR, CM_EQL , CM_QUES, CM_ASTR, _______,
-      _______, CM_AT  , CM_PLUS, CM_CIRC, CM_BSLS, CM_GRV , _______, _______, _______, _______, CM_DQUO, CM_DLR , CM_MINS, _______, _______, _______,
+      _______, _______, CM_QUES, CM_MINS, CM_PIPE, _______,                                     _______, CM_RBRC, CM_HASH, CM_RABK, _______, _______,
+      _______, CM_ASTR, CM_SCLN, CM_LCBR, CM_LPRN, CM_PLUS,                                     CM_PERC, CM_EQL , CM_RPRN, CM_SLSH, CM_RCBR, _______,
+      _______, CM_CIRC, CM_BSLS, CM_LABK, CM_LBRC, CM_GRV , _______, _______, _______, _______, CM_DQUO, CM_TILD, CM_AMPR, CM_EXLM, CM_DLR , _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
@@ -234,12 +235,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
-    [_MOUSE] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,                                     _______, _______, KC_MS_U, _______, _______, _______,
-      _______, _______, _______, _______, _______, _______,                                     _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______,
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                                 _______, _______, _______, _______, _______, _______, KC_BTN1, _______, _______, _______
-    ),
+    // [_MOUSE] = LAYOUT(
+    //   _______, _______, _______, _______, _______, _______,                                     _______, _______, KC_MS_U, _______, _______, _______,
+    //   _______, _______, _______, _______, _______, _______,                                     _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______,
+    //   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    //                              _______, _______, _______, _______, _______, _______, KC_BTN1, _______, _______, _______
+    // ),
 
 /*
  * Nav Layer: Media, navigation
@@ -302,7 +303,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,  KC_F11,  KC_F7 ,  KC_F8 ,  KC_F9 , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                  KC_MPLY, _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE
     ),
-
+/*
+ * Emoticon template
+ *
+ * ,------------------------------------------.                              ,-------------------------------------------.
+ * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
+ * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        `----------------------------------'  `----------------------------------'
+ */
+    [_EMO] = LAYOUT(
+      _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
 /*
  * I3 Layer
  *
@@ -328,9 +348,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Adjust Layer: Default layer settings, RGB
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        | Colm |Colemu|Qwerty|      |      |                              |      |      |      |      |      |        |
+ * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |                              | TOG  | SAI  | HUI  | VAI  | MOD  |        |
+ * |        |      |      |      |Colm  |Colemu|                              | TOG  | SAI  | HUI  | VAI  | MOD  |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |      |  |      |      |      | SAD  | HUD  | VAD  | RMOD |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
@@ -339,8 +359,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_ADJUST] = LAYOUT(
-      _______, COLEMAK,  COLEMU, QWERTY , _______, _______,                                    _______, _______, _______, _______,  _______, _______,
-      _______, _______, _______, _______, _______, _______,                                    RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI,  RGB_MOD, _______,
+      _______, _______, _______, _______, _______, _______,                                    _______, _______, _______, _______,  _______, _______,
+      _______, _______, _______, _______, COLEMAK, COLEMU ,                                    RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI,  RGB_MOD, _______,
       _______, _______, _______, _______, _______, _______,_______, _______, _______, _______, _______, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD, _______,
                                  _______, _______, _______,_______, _______, _______, _______, _______, _______, _______
     ),
@@ -367,26 +387,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_RALT , KC_Z ,  KC_X   ,  KC_C  ,   KC_D ,   KC_V , ADJUST ,_______,     _______, KC_CAPS, KC_QUOT,KC_K ,  KC_H , KC_COMM,KC_DOT,  KC_SCLN,
                                  KC_MUTE, ESC_FN, KC_SPC , NUM    ,_______,     FKEYS  ,NAV, CE_SYM_UNDS,   I3 , TOGGLE
     ),
-/*
- * Base Layer: QWERTY native for gaming
- *
- * ,-------------------------------------------.                              ,-------------------------------------------.
- * | Tab    | Q    |  W   | E    | R    | T    |                              | Y    | U    | I    | O    | P    | Bksp   |
- * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * | LShift | A    | S    | D    | F    | G    |                              | ;    | H    | J    | K    | L    | Ent    |
- * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LCtrl  | Z    | X    | C    | V    | B    | ADJ  |      |  |      | CAPS | '    | N    | M    | ,    | .    | RAlt   |
- * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | MUTE | Esc  | Spc  |      |      |  |      | _    | :    |      | TOGL |
- *                        | Vol+-| FKEY |      | NUM  |      |  |      | SYM  | Rsft | I3   |Scrl+-|
- *                        `----------------------------------'  `----------------------------------'
- */
-    [_QWERTY] = LAYOUT(
-     KC_TAB , KC_Q ,  KC_W   ,  KC_E  ,   KC_R ,   KC_T ,                                        KC_Y,  KC_U  ,  KC_I , KC_O   ,KC_P,    KC_BSPC,
-     KC_LSFT, KC_A,   KC_S   ,  KC_D,     KC_F,    KC_G ,                                     KC_SCLN,  KC_H  ,  KC_J , KC_K   ,KC_L,    KC_ENT,
-     KC_LCTL, KC_Z ,  KC_X   ,  KC_C  ,   KC_V ,   KC_B , ADJUST ,_______,     _______, KC_CAPS, KC_QUOT,KC_N ,  KC_M , KC_COMM,KC_DOT,  KC_RALT,
-                                KC_MUTE,ESC_FN , KC_SPC , NUM    ,_______,     FKEYS  ,CE_SYM_UNDS, CE_RS_COLN,    I3 , TOGGLE
-    ),
+// /*
+//  * Base Layer: QWERTY native for gaming
+//  *
+//  * ,-------------------------------------------.                              ,-------------------------------------------.
+//  * | Tab    | Q    |  W   | E    | R    | T    |                              | Y    | U    | I    | O    | P    | Bksp   |
+//  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+//  * | LShift | A    | S    | D    | F    | G    |                              | ;    | H    | J    | K    | L    | Ent    |
+//  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+//  * | LCtrl  | Z    | X    | C    | V    | B    | ADJ  |      |  |      | CAPS | '    | N    | M    | ,    | .    | RAlt   |
+//  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+//  *                        | MUTE | Esc  | Spc  |      |      |  |      | _    | :    |      | TOGL |
+//  *                        | Vol+-| FKEY |      | NUM  |      |  |      | SYM  | Rsft | I3   |Scrl+-|
+//  *                        `----------------------------------'  `----------------------------------'
+//  */
+//     [_QWERTY] = LAYOUT(
+//      KC_TAB , KC_Q ,  KC_W   ,  KC_E  ,   KC_R ,   KC_T ,                                        KC_Y,  KC_U  ,  KC_I , KC_O   ,KC_P,    KC_BSPC,
+//      KC_LSFT, KC_A,   KC_S   ,  KC_D,     KC_F,    KC_G ,                                     KC_SCLN,  KC_H  ,  KC_J , KC_K   ,KC_L,    KC_ENT,
+//      KC_LCTL, KC_Z ,  KC_X   ,  KC_C  ,   KC_V ,   KC_B , ADJUST ,_______,     _______, KC_CAPS, KC_QUOT,KC_N ,  KC_M , KC_COMM,KC_DOT,  KC_RALT,
+//                                 KC_MUTE,ESC_FN , KC_SPC , NUM    ,_______,     FKEYS  ,CE_SYM_UNDS, CE_RS_COLN,    I3 , TOGGLE
+//     ),
 
 // /*
 //  * Layer template
@@ -436,32 +456,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         //         return false;
         //     }
         //     break;
-        case LT(_MOUSE, KC_NO):
-            if(record->tap.count && record->event.pressed) {
-                  tap_code(KC_BTN1);
-                return false;
-            }
-            break;
-        case MS_2:
-            if(record->event.pressed) {
-                  layer_on(_MOUSE);
-                  register_code(KC_BTN2);
-            }
-            else {
-                  unregister_code16(KC_BTN2);
-                  layer_off(_MOUSE);
-            }
-            break;
-        case MS_3:
-            if(record->event.pressed) {
-                  layer_on(_MOUSE);
-                  register_code(KC_BTN3);
-            }
-            else {
-                  unregister_code16(KC_BTN3);
-                  layer_off(_MOUSE);
-            }
-            break;
+        // case LT(_MOUSE, KC_NO):
+        //     if(record->tap.count && record->event.pressed) {
+        //           tap_code(KC_BTN1);
+        //         return false;
+        //     }
+        //     break;
+        // case MS_2:
+        //     if(record->event.pressed) {
+        //           layer_on(_MOUSE);
+        //           register_code(KC_BTN2);
+        //     }
+        //     else {
+        //           unregister_code16(KC_BTN2);
+        //           layer_off(_MOUSE);
+        //     }
+        //     break;
+        // case MS_3:
+        //     if(record->event.pressed) {
+        //           layer_on(_MOUSE);
+        //           register_code(KC_BTN3);
+        //     }
+        //     else {
+        //           unregister_code16(KC_BTN3);
+        //           layer_off(_MOUSE);
+        //     }
+        //     break;
     }
     return true;
 }
