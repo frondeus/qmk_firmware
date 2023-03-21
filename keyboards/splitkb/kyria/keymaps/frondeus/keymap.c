@@ -26,7 +26,7 @@ enum layers {
     _SYM, // Symbols
     _NAV, // Navigation, arrows
     _FUNCTION, // F1-F12
-    _EMO,
+    _ANKI,
     // _MOUSE,
     _I3, // I3wm layer
     _ADJUST, // Change RGB, change layout
@@ -42,7 +42,6 @@ enum layers {
 
 /* #define SYM      MO(_SYM) */
 #define NAV      MO(_NAV)
-#define PL_Z     MO(_PL)
 #define NUM      MO(_NUM)
 #define FKEYS    MO(_FUNCTION)
 #define I3       LM(_I3, MOD_LGUI)
@@ -51,6 +50,7 @@ enum layers {
 #define T_NUM    TG(_NUM)
 #define T_I3     TG(_I3)
 #define T_FKEYS  TG(_FUNCTION)
+#define ANKI     MO(_ANKI)
 #define ADJUST   MO(_ADJUST)
 #define _RESET   TO(_COLEMAK_DH)
 #define TOGGLE   TG(_TOGGLE)
@@ -62,6 +62,8 @@ enum layers {
 #define RS_COLN  MT(MOD_RSFT, CM_COLN)
 #define SYM_UNDS LT(_SYM,     CM_UNDS)
 #define NUM_COL  LT(_NUM,     CM_COLN)
+#define HOME_G   LT(_PL,      CM_G)
+#define HOME_M   LT(_PL,      CM_M)
 #define HOME_A   MT(MOD_LGUI, CM_A)
 #define HOME_R   MT(MOD_LALT, CM_R)
 #define HOME_S   MT(MOD_LSFT, CM_S)
@@ -172,9 +174,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_COLEMAK_DH] = LAYOUT(
      KC_DEL  , CM_Q ,  CM_W   ,  CM_F  ,   CM_P ,   CM_B ,                                        CM_J,  CM_L  ,  CM_U , CM_Y   , CM_AT,  KC_BSPC,
-     KC_TAB  ,HOME_A,  HOME_R ,  HOME_S,  HOME_T,   CM_G ,                                        CM_M,  HOME_N, HOME_E, HOME_I ,HOME_O,  KC_ENT,
-     KC_RALT , CM_Z ,  CM_X   ,  CM_C  ,   CM_D ,   CM_V , KC_CAPS,ADJUST ,     _______, _______, CM_QUOT,CM_K ,  CM_H , CM_COMM,CM_DOT,  PL_Z,
-                                 _______,ESC_FN , KC_SPC , NUM_COL,_______,     _______, NAV,   SYM_UNDS,    I3 , TOGGLE
+     KC_TAB  ,HOME_A,  HOME_R ,  HOME_S,  HOME_T, HOME_G ,                                      HOME_M,  HOME_N, HOME_E, HOME_I ,HOME_O,  KC_ENT,
+     KC_RALT , CM_Z ,  CM_X   ,  CM_C  ,   CM_D ,   CM_V , KC_CAPS,ADJUST ,     _______, _______, CM_QUOT,CM_K ,  CM_H , CM_COMM,CM_DOT,  KC_RALT,
+                                 _______,ESC_FN , KC_SPC , NUM_COL,_______,     ANKI   , NAV,   SYM_UNDS,    I3 , TOGGLE
     ),
 
     [_PL] = LAYOUT(
@@ -294,23 +296,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  KC_MPLY, _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE
     ),
 /*
- * Emoticon template
+ * ANKI
  *
  * ,------------------------------------------.                              ,-------------------------------------------.
  * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+ * |        |      |      |      |      |      |                              |      |  1   | 2    | 3    | 4    |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
+ * |        |      |      |      |      |      |      |      |  |      |      |      |  ret | r    | k    |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
-    [_EMO] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    [_ANKI] = LAYOUT(
+      _______, _______, _______, _______, _______, _______,                                     _______, _______, CM_4   , _______, _______, _______,
+      _______, _______, _______, _______, _______, _______,                                     _______, CM_1   , KC_ENT , CM_3   , _______, _______,
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, CM_2   , CM_R   , CM_K   , _______, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 /*
